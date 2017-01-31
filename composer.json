@@ -1,0 +1,25 @@
+{
+    "name": "mediact/coding-standard-phpstorm",
+    "description": "MediaCT PHP Coding Standard PHPStorm integration",
+    "type": "composer-plugin",
+    "homepage": "https://bitbucket.org/mediactbv/coding-standard-phpstorm",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "MediaCT",
+            "email": "contact@mediact.nl"
+        }
+    ],
+    "require": {
+        "php": "^5.4.0 || ^7.0",
+        "composer-plugin-api": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mediact\\CodingStandard\\PhpStorm\\": "src"
+        }
+    },
+    "extra": {
+        "class": "Mediact\\CodingStandard\\PhpStorm\\Plugin"
+    }
+}
