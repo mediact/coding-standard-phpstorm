@@ -7,12 +7,15 @@
 namespace Mediact\CodingStandard\PhpStorm;
 
 use Composer\Composer;
+use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
+use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcher;
+use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
 
-class Plugin implements PluginInterface
+class Plugin implements PluginInterface, EventSubscriberInterface
 {
     /**
      * @var Composer
@@ -22,20 +25,33 @@ class Plugin implements PluginInterface
     /**
      * @var IOInterface
      */
-    private $io;
+    private $inputOutput;
+
+    /**
+     * @var ConfigPatcherInterface
+     */
+    private $patcher;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->patcher = new ConfigPatcher();
+    }
 
     /**
      * Apply plugin modifications to Composer
      *
      * @param Composer    $composer
-     * @param IOInterface $io
+     * @param IOInterface $inputOutput
      *
      * @return void
      */
-    public function activate(Composer $composer, IOInterface $io)
+    public function activate(Composer $composer, IOInterface $inputOutput)
     {
-        $this->composer = $composer;
-        $this->io       = $io;
+        $this->composer    = $composer;
+        $this->inputOutput = $inputOutput;
     }
 
     /**
@@ -43,7 +59,7 @@ class Plugin implements PluginInterface
      *
      * @return array
      */
-    public static function getSubscribedEvents(): array
+    public static function getSubscribedEvents()
     {
         return [
             ScriptEvents::POST_INSTALL_CMD => 'onNewCodeEvent',
@@ -60,5 +76,18 @@ class Plugin implements PluginInterface
      */
     public function onNewCodeEvent(Event $event)
     {
+        $vendorDir   = $event->getComposer()->getConfig()->get('vendor-dir');
+        $phpStormDir = dirname($vendorDir) . DIRECTORY_SEPARATOR . '.idea';
+        $filesDir    = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'files';
+
+        if (is_dir($phpStormDir) && is_dir($filesDir)) {
+            $this->patcher->patch(
+                new Filesystem($phpStormDir),
+                new Filesystem($filesDir)
+            );
+            if ($this->inputOutput->isVerbose()) {
+                $this->inputOutput->write('Patched the PhpStorm config');
+            }
+        }
     }
 }
