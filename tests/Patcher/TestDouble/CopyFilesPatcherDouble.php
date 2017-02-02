@@ -3,12 +3,13 @@
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
-
-namespace Mediact\CodingStandard\PhpStorm\Patcher;
+namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher\TestDouble;
 
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
+use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
+use Mediact\CodingStandard\PhpStorm\Patcher\CopyFilesTrait;
 
-class InspectionsPatcher implements ConfigPatcherInterface
+class CopyFilesPatcherDouble implements ConfigPatcherInterface
 {
     use CopyFilesTrait;
 
@@ -24,6 +25,6 @@ class InspectionsPatcher implements ConfigPatcherInterface
         FilesystemInterface $configDir,
         FilesystemInterface $filesDir
     ) {
-        $this->copyDirectory($configDir, $filesDir, 'inspectionProfiles');
+        $this->copyDirectory($configDir, $filesDir, 'foo');
     }
 }

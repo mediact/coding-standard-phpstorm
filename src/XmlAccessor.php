@@ -85,7 +85,7 @@ class XmlAccessor implements XmlAccessorInterface
             if (isset($storage->{$key})) {
                 $storage->{$key} = $value;
             } else {
-                $storage->addAttribute($key, $value);
+                $element->addAttribute($key, $value);
             }
         }
     }

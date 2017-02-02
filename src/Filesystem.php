@@ -73,7 +73,10 @@ class Filesystem implements FilesystemInterface
         $directory = dirname($path);
         $this->createDir($directory);
         $path = $this->getPath($path);
-        if (!is_writable($path) && !is_writable(dirname($path))) {
+        if (!file_exists($path) && !is_writable(dirname($path))) {
+            throw new RuntimeException(dirname($path) . ' is not writable');
+        }
+        if (file_exists($path) && !is_writable($path)) {
             throw new RuntimeException($path . ' is not writable');
         }
         return file_put_contents($path, $contents);
@@ -158,6 +161,14 @@ class Filesystem implements FilesystemInterface
      */
     private function getPath($path)
     {
-        return $this->root . $path;
+        return $this->root .
+            ltrim(
+                preg_replace(
+                    sprintf('|%s{2,}|', preg_quote(DIRECTORY_SEPARATOR)),
+                    DIRECTORY_SEPARATOR,
+                    $path
+                ),
+                DIRECTORY_SEPARATOR
+            );
     }
 }
