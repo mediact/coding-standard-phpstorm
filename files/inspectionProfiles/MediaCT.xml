@@ -2,10 +2,10 @@
   <profile version="1.0">
     <option name="myName" value="MediaCT" />
     <inspection_tool class="MessDetectorValidationInspection" enabled="true" level="WARNING" enabled_by_default="true">
-      <option name="CODESIZE" value="true" />
-      <option name="DESIGN" value="true" />
-      <option name="UNUSEDCODE" value="true" />
-      <option name="NAMING" value="true" />
+      <option name="CODESIZE" value="false" />
+      <option name="DESIGN" value="false" />
+      <option name="UNUSEDCODE" value="false" />
+      <option name="NAMING" value="false" />
       <option name="customRulesets">
         <list>
           <RulesetDescriptor>
