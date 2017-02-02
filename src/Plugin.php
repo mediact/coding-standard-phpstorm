@@ -1,0 +1,93 @@
+<?php
+/**
+ * Copyright MediaCT. All rights reserved.
+ * https://www.mediact.nl
+ */
+
+namespace Mediact\CodingStandard\PhpStorm;
+
+use Composer\Composer;
+use Composer\EventDispatcher\EventSubscriberInterface;
+use Composer\IO\IOInterface;
+use Composer\Plugin\PluginInterface;
+use Composer\Script\Event;
+use Composer\Script\ScriptEvents;
+use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcher;
+use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
+
+class Plugin implements PluginInterface, EventSubscriberInterface
+{
+    /**
+     * @var Composer
+     */
+    private $composer;
+
+    /**
+     * @var IOInterface
+     */
+    private $inputOutput;
+
+    /**
+     * @var ConfigPatcherInterface
+     */
+    private $patcher;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->patcher = new ConfigPatcher();
+    }
+
+    /**
+     * Apply plugin modifications to Composer
+     *
+     * @param Composer    $composer
+     * @param IOInterface $inputOutput
+     *
+     * @return void
+     */
+    public function activate(Composer $composer, IOInterface $inputOutput)
+    {
+        $this->composer    = $composer;
+        $this->inputOutput = $inputOutput;
+    }
+
+    /**
+     * Get the subscribed events.
+     *
+     * @return array
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            ScriptEvents::POST_INSTALL_CMD => 'onNewCodeEvent',
+            ScriptEvents::POST_UPDATE_CMD  => 'onNewCodeEvent'
+        ];
+    }
+
+    /**
+     * On new code.
+     *
+     * @param Event $event
+     *
+     * @return void
+     */
+    public function onNewCodeEvent(Event $event)
+    {
+        $vendorDir   = $event->getComposer()->getConfig()->get('vendor-dir');
+        $phpStormDir = dirname($vendorDir) . DIRECTORY_SEPARATOR . '.idea';
+        $filesDir    = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'files';
+
+        if (is_dir($phpStormDir) && is_dir($filesDir)) {
+            $this->patcher->patch(
+                new Filesystem($phpStormDir),
+                new Filesystem($filesDir)
+            );
+            if ($this->inputOutput->isVerbose()) {
+                $this->inputOutput->write('Patched the PhpStorm config');
+            }
+        }
+    }
+}
