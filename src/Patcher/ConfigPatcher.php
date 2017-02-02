@@ -18,12 +18,14 @@ class ConfigPatcher implements ConfigPatcherInterface
 
     /**
      * Constructor.
+     *
+     * @param array $patchers
      */
-    public function __construct()
+    public function __construct(array $patchers = null)
     {
         $xmlAccessor = new XmlAccessor();
 
-        $this->patchers = [
+        $this->patchers = $patchers ?? [
             new CodeStylePatcher(),
             new FileTemplatesPatcher($xmlAccessor),
             new InspectionsPatcher()

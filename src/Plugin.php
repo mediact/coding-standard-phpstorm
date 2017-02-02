@@ -18,26 +18,18 @@ use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
     /**
-     * @var Composer
-     */
-    private $composer;
-
-    /**
-     * @var IOInterface
-     */
-    private $inputOutput;
-
-    /**
      * @var ConfigPatcherInterface
      */
     private $patcher;
 
     /**
      * Constructor.
+     *
+     * @param ConfigPatcherInterface $patcher
      */
-    public function __construct()
+    public function __construct(ConfigPatcherInterface $patcher = null)
     {
-        $this->patcher = new ConfigPatcher();
+        $this->patcher = $patcher ?? new ConfigPatcher();
     }
 
     /**
@@ -50,8 +42,6 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      */
     public function activate(Composer $composer, IOInterface $inputOutput)
     {
-        $this->composer    = $composer;
-        $this->inputOutput = $inputOutput;
     }
 
     /**
@@ -85,8 +75,10 @@ class Plugin implements PluginInterface, EventSubscriberInterface
                 new Filesystem($phpStormDir),
                 new Filesystem($filesDir)
             );
-            if ($this->inputOutput->isVerbose()) {
-                $this->inputOutput->write('Patched the PhpStorm config');
+
+            $output = $event->getIO();
+            if ($output->isVerbose()) {
+                $output->write('Patched the PhpStorm config');
             }
         }
     }
