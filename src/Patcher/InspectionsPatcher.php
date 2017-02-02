@@ -10,6 +10,8 @@ use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 
 class InspectionsPatcher implements ConfigPatcherInterface
 {
+    use CopyFilesTrait;
+
     /**
      * Patch the config.
      *
@@ -22,11 +24,6 @@ class InspectionsPatcher implements ConfigPatcherInterface
         FilesystemInterface $configDir,
         FilesystemInterface $filesDir
     ) {
-        foreach ($filesDir->listFiles('inspectionProfiles') as $filePath) {
-            $configDir->put(
-                $filePath,
-                $filesDir->read($filePath)
-            );
-        }
+        $this->copyDirectory($configDir, $filesDir, 'inspectionProfiles');
     }
 }

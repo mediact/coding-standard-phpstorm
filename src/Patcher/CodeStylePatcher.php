@@ -10,6 +10,8 @@ use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 
 class CodeStylePatcher implements ConfigPatcherInterface
 {
+    use CopyFilesTrait;
+
     /**
      * Patch the config.
      *
@@ -22,9 +24,6 @@ class CodeStylePatcher implements ConfigPatcherInterface
         FilesystemInterface $configDir,
         FilesystemInterface $filesDir
     ) {
-        $configDir->put(
-            'codeStyleSettings.xml',
-            $filesDir->read('codeStyleSettings.xml')
-        );
+        $this->copyFile($configDir, $filesDir, 'codeStyleSettings.xml');
     }
 }

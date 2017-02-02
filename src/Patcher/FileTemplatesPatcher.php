@@ -11,6 +11,8 @@ use Mediact\CodingStandard\PhpStorm\XmlAccessorInterface;
 
 class FileTemplatesPatcher implements ConfigPatcherInterface
 {
+    use CopyFilesTrait;
+
     /**
      * @var XmlAccessorInterface
      */
@@ -38,35 +40,8 @@ class FileTemplatesPatcher implements ConfigPatcherInterface
         FilesystemInterface $configDir,
         FilesystemInterface $filesDir
     ) {
-        $this->copyFiles($configDir, $filesDir);
+        $this->copyDirectory($configDir, $filesDir, 'fileTemplates');
         $this->patchWorkspaceConfig($configDir);
-    }
-
-    /**
-     * Copy files.
-     *
-     * @param FilesystemInterface $configDir
-     * @param FilesystemInterface $filesDir
-     *
-     * @return void
-     */
-    private function copyFiles(
-        FilesystemInterface $configDir,
-        FilesystemInterface $filesDir
-    ) {
-        foreach ($filesDir->listFiles('fileTemplates') as $filePath) {
-            $configDir->put(
-                $filePath,
-                $filesDir->read($filePath)
-            );
-        }
-
-        if (!$configDir->has('workspace.xml')) {
-            $configDir->put(
-                'workspace.xml',
-                $filesDir->read('emptyConfig.xml')
-            );
-        }
     }
 
     /**
