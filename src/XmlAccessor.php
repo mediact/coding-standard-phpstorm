@@ -80,11 +80,12 @@ class XmlAccessor implements XmlAccessorInterface
         SimpleXMLElement $element,
         array $attributes
     ) {
+        $storage = $element->attributes();
         foreach ($attributes as $key => $value) {
-            if (isset($element->attributes()->{$key})) {
-                $element->attributes()->{$key} = $value;
+            if (isset($storage->{$key})) {
+                $storage->{$key} = $value;
             } else {
-                $element->addAttribute($key, $value);
+                $storage->addAttribute($key, $value);
             }
         }
     }

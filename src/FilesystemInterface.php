@@ -52,5 +52,5 @@ interface FilesystemInterface
      *
      * @return array
      */
-    public function listContents($path = '');
+    public function listFiles($path = '');
 }

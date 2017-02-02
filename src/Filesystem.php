@@ -53,7 +53,7 @@ class Filesystem implements FilesystemInterface
     {
         $path = $this->getPath($path);
         if (!is_readable($path) || !is_file($path)) {
-            throw new RuntimeException($path . ' is not readable');
+            throw new RuntimeException($path . ' is not readable file');
         }
         return file_get_contents($path);
     }
@@ -115,7 +115,7 @@ class Filesystem implements FilesystemInterface
      *
      * @throws RuntimeException When the path is not a directory.
      */
-    public function listContents($path = '')
+    public function listFiles($path = '')
     {
         $directory = $this->getPath($path);
         if (!is_dir($directory)) {
@@ -133,12 +133,17 @@ class Filesystem implements FilesystemInterface
         );
 
         $files = [];
+
         /** @var SplFileInfo $fileInfo */
         foreach ($iterator as $fileInfo) {
             if ($fileInfo->isDir()) {
                 continue;
             }
-            $files[] = str_replace($this->root, '', $fileInfo->getPathname());
+            $files[] = preg_replace(
+                sprintf('/^%s/', preg_quote($this->root, '/')),
+                '',
+                $fileInfo->getPathName()
+            );
         }
 
         return $files;

@@ -22,7 +22,7 @@ class InspectionsPatcher implements ConfigPatcherInterface
         FilesystemInterface $configDir,
         FilesystemInterface $filesDir
     ) {
-        foreach ($filesDir->listContents('inspectionProfiles') as $filePath) {
+        foreach ($filesDir->listFiles('inspectionProfiles') as $filePath) {
             $configDir->put(
                 $filePath,
                 $filesDir->read($filePath)

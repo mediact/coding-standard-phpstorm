@@ -54,7 +54,7 @@ class FileTemplatesPatcher implements ConfigPatcherInterface
         FilesystemInterface $configDir,
         FilesystemInterface $filesDir
     ) {
-        foreach ($filesDir->listContents('fileTemplates') as $filePath) {
+        foreach ($filesDir->listFiles('fileTemplates') as $filePath) {
             $configDir->put(
                 $filePath,
                 $filesDir->read($filePath)
