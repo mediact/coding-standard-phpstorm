@@ -29,7 +29,9 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      */
     public function __construct(ConfigPatcherInterface $patcher = null)
     {
-        $this->patcher = $patcher ?? new ConfigPatcher();
+        $this->patcher = $patcher !== null
+            ? $patcher
+            : new ConfigPatcher();
     }
 
     /**

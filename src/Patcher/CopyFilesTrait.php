@@ -21,7 +21,7 @@ trait CopyFilesTrait
     protected function copyDirectory(
         FilesystemInterface $configDir,
         FilesystemInterface $filesDir,
-        string $path
+        $path
     ) {
         foreach ($filesDir->listFiles($path) as $filePath) {
             $this->copyFile($configDir, $filesDir, $filePath);
@@ -40,7 +40,7 @@ trait CopyFilesTrait
     protected function copyFile(
         FilesystemInterface $configDir,
         FilesystemInterface $filesDir,
-        string $path
+        $path
     ) {
         $configDir->put(
             $path,
