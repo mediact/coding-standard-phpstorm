@@ -2,7 +2,6 @@
   <settings>
     <option name="projectProfile" value="MediaCT" />
     <option name="PROJECT_PROFILE" value="MediaCT" />
-    <option name="USE_PROJECT_PROFILE" value="true" />
     <version value="1.0" />
   </settings>
 </component>
