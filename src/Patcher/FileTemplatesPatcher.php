@@ -53,19 +53,19 @@ class FileTemplatesPatcher implements ConfigPatcherInterface
     /**
      * Patch the workspace config.
      *
-     * @param FilesystemInterface $ideConfigFilesystem
+     * @param FilesystemInterface $ideConfigFs
      *
      * @return void
      */
     private function patchWorkspaceConfig(
-        FilesystemInterface $ideConfigFilesystem
+        FilesystemInterface $ideConfigFs
     ) {
-        if (!$ideConfigFilesystem->has('workspace.xml')) {
+        if (!$ideConfigFs->has('workspace.xml')) {
             return;
         }
 
         $xml = simplexml_load_string(
-            $ideConfigFilesystem->read('workspace.xml')
+            $ideConfigFs->read('workspace.xml')
         );
 
         $node = $this->xmlAccessor->getDescendant(
@@ -81,6 +81,6 @@ class FileTemplatesPatcher implements ConfigPatcherInterface
             ['value' => 'Project']
         );
 
-        $ideConfigFilesystem->put('workspace.xml', $xml->asXML());
+        $ideConfigFs->put('workspace.xml', $xml->asXML());
     }
 }
