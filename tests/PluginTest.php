@@ -9,6 +9,7 @@ use Composer\Composer;
 use Composer\Config;
 use Composer\IO\IOInterface;
 use Composer\Script\Event;
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
 use org\bovigo\vfs\vfsStream;
@@ -27,6 +28,17 @@ class PluginTest extends PHPUnit_Framework_TestCase
     public function testConstructor(): Plugin
     {
         return new Plugin();
+    }
+
+    /**
+     * @return Plugin
+     * @covers ::__construct
+     */
+    public function testConstructorWithPatcher(): Plugin
+    {
+        return new Plugin(
+            $this->createMock(ConfigPatcherInterface::class)
+        );
     }
 
     /**
@@ -92,12 +104,12 @@ class PluginTest extends PHPUnit_Framework_TestCase
 
         $event = $this->createMock(Event::class);
         $event
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getComposer')
             ->willReturn($composer);
 
         $event
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getIO')
             ->willReturn($output);
 
@@ -105,10 +117,7 @@ class PluginTest extends PHPUnit_Framework_TestCase
         $patcher
             ->expects($this->once())
             ->method('patch')
-            ->with(
-                $this->isInstanceOf(FilesystemInterface::class),
-                $this->isInstanceOf(FilesystemInterface::class)
-            );
+            ->with($this->isInstanceOf(EnvironmentInterface::class));
 
         $plugin = new Plugin($patcher);
         $plugin->onNewCodeEvent($event);

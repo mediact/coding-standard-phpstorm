@@ -5,7 +5,7 @@
  */
 namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher\TestDouble;
 
-use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
 use Mediact\CodingStandard\PhpStorm\Patcher\CopyFilesTrait;
 
@@ -16,15 +16,17 @@ class CopyFilesPatcherDouble implements ConfigPatcherInterface
     /**
      * Patch the config.
      *
-     * @param FilesystemInterface $configDir
-     * @param FilesystemInterface $filesDir
+     * @param EnvironmentInterface $environment
      *
      * @return void
      */
     public function patch(
-        FilesystemInterface $configDir,
-        FilesystemInterface $filesDir
+        EnvironmentInterface $environment
     ) {
-        $this->copyDirectory($configDir, $filesDir, 'foo');
+        $this->copyDirectory(
+            $environment->getDefaultsFilesystem(),
+            $environment->getIdeConfigFilesystem(),
+            'foo'
+        );
     }
 }

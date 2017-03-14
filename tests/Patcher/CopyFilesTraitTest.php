@@ -5,6 +5,7 @@
  */
 namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher;
 
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use Mediact\CodingStandard\PhpStorm\Tests\Patcher\TestDouble\CopyFilesPatcherDouble;
 use PHPUnit_Framework_TestCase;
@@ -22,8 +23,8 @@ class CopyFilesTraitTest extends PHPUnit_Framework_TestCase
      */
     public function testPatch()
     {
-        $configDir = $this->createMock(FilesystemInterface::class);
-        $configDir
+        $destination = $this->createMock(FilesystemInterface::class);
+        $destination
             ->expects($this->exactly(2))
             ->method('put')
             ->withConsecutive(
@@ -31,24 +32,36 @@ class CopyFilesTraitTest extends PHPUnit_Framework_TestCase
                 ['foo/bar.xml', '<bar/>']
             );
 
-        $filesDir = $this->createMock(FilesystemInterface::class);
-        $filesDir
+        $source = $this->createMock(FilesystemInterface::class);
+        $source
             ->expects($this->once())
             ->method('listFiles')
             ->with('foo')
-            ->willReturn([
-                'foo/foo.xml',
-                'foo/bar.xml'
-            ]);
+            ->willReturn(
+                [
+                    'foo/foo.xml',
+                    'foo/bar.xml'
+                ]
+            );
 
-        $filesDir
+        $source
             ->expects($this->exactly(2))
             ->method('read')
-            ->willReturnMap([
-                ['foo/foo.xml', '<foo/>'],
-                ['foo/bar.xml', '<bar/>']
-            ]);
+            ->willReturnMap(
+                [
+                    ['foo/foo.xml', '<foo/>'],
+                    ['foo/bar.xml', '<bar/>']
+                ]
+            );
 
-        (new CopyFilesPatcherDouble())->patch($configDir, $filesDir);
+        $environment = $this->createConfiguredMock(
+            EnvironmentInterface::class,
+            [
+                'getIdeConfigFilesystem' => $destination,
+                'getDefaultsFilesystem' => $source
+            ]
+        );
+
+        (new CopyFilesPatcherDouble())->patch($environment);
     }
 }

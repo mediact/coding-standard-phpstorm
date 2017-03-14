@@ -5,6 +5,7 @@
  */
 namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher;
 
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use Mediact\CodingStandard\PhpStorm\XmlAccessorInterface;
 use PHPUnit_Framework_TestCase;
@@ -38,20 +39,20 @@ class FileTemplatesPatcherTest extends PHPUnit_Framework_TestCase
     {
         $accessor = $this->createMock(XmlAccessorInterface::class);
 
-        $filesDir = $this->createMock(FilesystemInterface::class);
-        $filesDir
+        $defaultsFs = $this->createMock(FilesystemInterface::class);
+        $defaultsFs
             ->expects($this->once())
             ->method('listFiles')
             ->willReturn([]);
 
-        $configDir = $this->createMock(FilesystemInterface::class);
-        $configDir
+        $ideConfigFs = $this->createMock(FilesystemInterface::class);
+        $ideConfigFs
             ->expects($this->once())
             ->method('has')
             ->with('workspace.xml')
             ->willReturn(true);
 
-        $configDir
+        $ideConfigFs
             ->expects($this->once())
             ->method('read')
             ->with('workspace.xml')
@@ -74,15 +75,20 @@ class FileTemplatesPatcherTest extends PHPUnit_Framework_TestCase
                 $this->isType('array')
             );
 
-        $configDir
+        $ideConfigFs
             ->expects($this->once())
             ->method('put')
             ->with('workspace.xml', $this->isType('string'));
 
-        (new FileTemplatesPatcher($accessor))->patch(
-            $configDir,
-            $filesDir
+        $environment = $this->createConfiguredMock(
+            EnvironmentInterface::class,
+            [
+                'getIdeConfigFilesystem' => $ideConfigFs,
+                'getDefaultsFilesystem' => $defaultsFs
+            ]
         );
+
+        (new FileTemplatesPatcher($accessor))->patch($environment);
     }
 
     /**
@@ -92,23 +98,28 @@ class FileTemplatesPatcherTest extends PHPUnit_Framework_TestCase
      */
     public function testPatchNoWorkspace()
     {
-        $accessor = $this->createMock(XmlAccessorInterface::class);
-        $filesDir = $this->createMock(FilesystemInterface::class);
-        $filesDir
+        $accessor   = $this->createMock(XmlAccessorInterface::class);
+        $defaultsFs = $this->createMock(FilesystemInterface::class);
+        $defaultsFs
             ->expects($this->once())
             ->method('listFiles')
             ->willReturn([]);
 
-        $configDir = $this->createMock(FilesystemInterface::class);
-        $configDir
+        $ideConfigFs = $this->createMock(FilesystemInterface::class);
+        $ideConfigFs
             ->expects($this->once())
             ->method('has')
             ->with('workspace.xml')
             ->willReturn(false);
 
-        (new FileTemplatesPatcher($accessor))->patch(
-            $configDir,
-            $filesDir
+        $environment = $this->createConfiguredMock(
+            EnvironmentInterface::class,
+            [
+                'getIdeConfigFilesystem' => $ideConfigFs,
+                'getDefaultsFilesystem' => $defaultsFs
+            ]
         );
+
+        (new FileTemplatesPatcher($accessor))->patch($environment);
     }
 }
