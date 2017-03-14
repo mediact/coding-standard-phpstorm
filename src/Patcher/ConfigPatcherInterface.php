@@ -6,20 +6,18 @@
 
 namespace Mediact\CodingStandard\PhpStorm\Patcher;
 
-use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 
 interface ConfigPatcherInterface
 {
     /**
      * Patch the config.
      *
-     * @param FilesystemInterface $configDir
-     * @param FilesystemInterface $filesDir
+     * @param EnvironmentInterface $environment
      *
      * @return void
      */
     public function patch(
-        FilesystemInterface $configDir,
-        FilesystemInterface $filesDir
+        EnvironmentInterface $environment
     );
 }

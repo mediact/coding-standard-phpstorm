@@ -5,6 +5,7 @@
  */
 namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher;
 
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use PHPUnit_Framework_TestCase;
 use Mediact\CodingStandard\PhpStorm\Patcher\CodeStylePatcher;

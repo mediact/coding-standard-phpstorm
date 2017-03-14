@@ -6,7 +6,9 @@
 
 namespace Mediact\CodingStandard\PhpStorm\Patcher;
 
-use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
+use Mediact\CodingStandard\PhpStorm\XmlAccessorInterface;
+use SimpleXMLElement;
 
 class InspectionsPatcher implements ConfigPatcherInterface
 {
@@ -15,14 +17,12 @@ class InspectionsPatcher implements ConfigPatcherInterface
     /**
      * Patch the config.
      *
-     * @param FilesystemInterface $configDir
-     * @param FilesystemInterface $filesDir
+     * @param EnvironmentInterface $environment
      *
      * @return void
      */
     public function patch(
-        FilesystemInterface $configDir,
-        FilesystemInterface $filesDir
+        EnvironmentInterface $environment
     ) {
         $this->copyDirectory($configDir, $filesDir, 'inspectionProfiles');
     }

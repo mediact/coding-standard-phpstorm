@@ -12,39 +12,39 @@ trait CopyFilesTrait
     /**
      * Copy a directory.
      *
-     * @param FilesystemInterface $configDir
-     * @param FilesystemInterface $filesDir
+     * @param FilesystemInterface $source
+     * @param FilesystemInterface $destination
      * @param string              $path
      *
      * @return void
      */
-    protected function copyDirectory(
-        FilesystemInterface $configDir,
-        FilesystemInterface $filesDir,
+    private function copyDirectory(
+        FilesystemInterface $source,
+        FilesystemInterface $destination,
         $path
     ) {
-        foreach ($filesDir->listFiles($path) as $filePath) {
-            $this->copyFile($configDir, $filesDir, $filePath);
+        foreach ($source->listFiles($path) as $filePath) {
+            $this->copyFile($source, $destination, $filePath);
         }
     }
 
     /**
      * Copy a file.
      *
-     * @param FilesystemInterface $configDir
-     * @param FilesystemInterface $filesDir
+     * @param FilesystemInterface $source
+     * @param FilesystemInterface $destination
      * @param string              $path
      *
      * @return void
      */
-    protected function copyFile(
-        FilesystemInterface $configDir,
-        FilesystemInterface $filesDir,
+    private function copyFile(
+        FilesystemInterface $source,
+        FilesystemInterface $destination,
         $path
     ) {
-        $configDir->put(
+        $destination->put(
             $path,
-            $filesDir->read($path)
+            $source->read($path)
         );
     }
 }

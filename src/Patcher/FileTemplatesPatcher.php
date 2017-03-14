@@ -6,6 +6,7 @@
 
 namespace Mediact\CodingStandard\PhpStorm\Patcher;
 
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use Mediact\CodingStandard\PhpStorm\XmlAccessorInterface;
 
@@ -31,33 +32,41 @@ class FileTemplatesPatcher implements ConfigPatcherInterface
     /**
      * Patch the config.
      *
-     * @param FilesystemInterface $configDir
-     * @param FilesystemInterface $filesDir
+     * @param EnvironmentInterface $environment
      *
      * @return void
      */
     public function patch(
-        FilesystemInterface $configDir,
-        FilesystemInterface $filesDir
+        EnvironmentInterface $environment
     ) {
-        $this->copyDirectory($configDir, $filesDir, 'fileTemplates');
-        $this->patchWorkspaceConfig($configDir);
+        $this->copyDirectory(
+            $environment->getDefaultsFilesystem(),
+            $environment->getIdeConfigFilesystem(),
+            'fileTemplates'
+        );
+
+        $this->patchWorkspaceConfig(
+            $environment->getIdeConfigFilesystem()
+        );
     }
 
     /**
      * Patch the workspace config.
      *
-     * @param FilesystemInterface $configDir
+     * @param FilesystemInterface $ideConfigFilesystem
      *
      * @return void
      */
     private function patchWorkspaceConfig(
-        FilesystemInterface $configDir
+        FilesystemInterface $ideConfigFilesystem
     ) {
-        if (!$configDir->has('workspace.xml')) {
+        if (!$ideConfigFilesystem->has('workspace.xml')) {
             return;
         }
-        $xml = simplexml_load_string($configDir->read('workspace.xml'));
+
+        $xml = simplexml_load_string(
+            $ideConfigFilesystem->read('workspace.xml')
+        );
 
         $node = $this->xmlAccessor->getDescendant(
             $xml,
@@ -72,6 +81,6 @@ class FileTemplatesPatcher implements ConfigPatcherInterface
             ['value' => 'Project']
         );
 
-        $configDir->put('workspace.xml', $xml->asXML());
+        $ideConfigFilesystem->put('workspace.xml', $xml->asXML());
     }
 }
