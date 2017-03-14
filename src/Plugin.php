@@ -69,13 +69,19 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     public function onNewCodeEvent(Event $event)
     {
         $vendorDir   = $event->getComposer()->getConfig()->get('vendor-dir');
-        $phpStormDir = dirname($vendorDir) . DIRECTORY_SEPARATOR . '.idea';
+        $projectDir  = dirname($vendorDir);
+        $phpStormDir = $projectDir . DIRECTORY_SEPARATOR . '.idea';
         $filesDir    = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'files';
 
         if (is_dir($phpStormDir) && is_dir($filesDir)) {
             $this->patcher->patch(
-                new Filesystem($phpStormDir),
-                new Filesystem($filesDir)
+                new Environment(
+                    new Filesystem($phpStormDir),
+                    new Filesystem($filesDir),
+                    new Filesystem($projectDir),
+                    $event->getIO(),
+                    $event->getComposer()
+                )
             );
 
             $output = $event->getIO();

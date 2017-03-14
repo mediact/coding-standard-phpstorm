@@ -5,7 +5,7 @@
  */
 namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher;
 
-use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
 use PHPUnit_Framework_TestCase;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcher;
@@ -26,14 +26,25 @@ class ConfigPatcherTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @return ConfigPatcher
+     *
+     * @covers ::__construct
+     */
+    public function testConstructorWithPatchers(): ConfigPatcher
+    {
+        return new ConfigPatcher(
+            [$this->createMock(ConfigPatcherInterface::class)]
+        );
+    }
+
+    /**
      * @return void
      *
      * @covers ::patch
      */
     public function testPatch()
     {
-        $configDir = $this->createMock(FilesystemInterface::class);
-        $filesDir  = $this->createMock(FilesystemInterface::class);
+        $environment = $this->createMock(EnvironmentInterface::class);
 
         $patchers = [
             $this->createMock(ConfigPatcherInterface::class),
@@ -44,9 +55,9 @@ class ConfigPatcherTest extends PHPUnit_Framework_TestCase
             $patcher
                 ->expects($this->once())
                 ->method('patch')
-                ->with($configDir, $filesDir);
+                ->with($environment);
         }
 
-        (new ConfigPatcher($patchers))->patch($configDir, $filesDir);
+        (new ConfigPatcher($patchers))->patch($environment);
     }
 }

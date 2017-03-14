@@ -6,7 +6,7 @@
 
 namespace Mediact\CodingStandard\PhpStorm\Patcher;
 
-use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\XmlAccessor;
 
 class ConfigPatcher implements ConfigPatcherInterface
@@ -30,24 +30,22 @@ class ConfigPatcher implements ConfigPatcherInterface
             : [
                 new CodeStylePatcher(),
                 new FileTemplatesPatcher($xmlAccessor),
-                new InspectionsPatcher()
+                new InspectionsPatcher($xmlAccessor)
             ];
     }
 
     /**
      * Patch the config.
      *
-     * @param FilesystemInterface $configDir
-     * @param FilesystemInterface $filesDir
+     * @param EnvironmentInterface $environment
      *
      * @return void
      */
     public function patch(
-        FilesystemInterface $configDir,
-        FilesystemInterface $filesDir
+        EnvironmentInterface $environment
     ) {
         foreach ($this->patchers as $patcher) {
-            $patcher->patch($configDir, $filesDir);
+            $patcher->patch($environment);
         }
     }
 }

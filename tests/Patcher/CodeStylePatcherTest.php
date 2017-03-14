@@ -5,6 +5,7 @@
  */
 namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher;
 
+use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use PHPUnit_Framework_TestCase;
 use Mediact\CodingStandard\PhpStorm\Patcher\CodeStylePatcher;
@@ -21,19 +22,27 @@ class CodeStylePatcherTest extends PHPUnit_Framework_TestCase
      */
     public function testPatch()
     {
-        $configDir = $this->createMock(FilesystemInterface::class);
-        $configDir
+        $ideConfigFs = $this->createMock(FilesystemInterface::class);
+        $ideConfigFs
             ->expects($this->once())
             ->method('put')
             ->with('codeStyleSettings.xml', '<xml/>');
 
-        $filesDir = $this->createMock(FilesystemInterface::class);
-        $filesDir
+        $defaultsFs = $this->createMock(FilesystemInterface::class);
+        $defaultsFs
             ->expects($this->once())
             ->method('read')
             ->with('codeStyleSettings.xml')
             ->willReturn('<xml/>');
 
-        (new CodeStylePatcher())->patch($configDir, $filesDir);
+        $environment = $this->createConfiguredMock(
+            EnvironmentInterface::class,
+            [
+                'getIdeConfigFilesystem' => $ideConfigFs,
+                'getDefaultsFilesystem' => $defaultsFs
+            ]
+        );
+
+        (new CodeStylePatcher())->patch($environment);
     }
 }
