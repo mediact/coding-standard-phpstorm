@@ -87,7 +87,6 @@ class InspectionsPatcher implements ConfigPatcherInterface
         $node = $this->xmlAccessor->getDescendant(
             $xml,
             [
-                ['component'],
                 ['profile'],
                 ['inspection_tool', ['class' => 'PhpCSValidationInspection']],
                 ['option', ['name' => 'CUSTOM_RULESET_PATH']]
