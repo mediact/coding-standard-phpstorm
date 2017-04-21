@@ -5,21 +5,24 @@
 namespace ${NAMESPACE};
 #end
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use ${TESTED_NAMESPACE}\\${TESTED_NAME};
 
 /**
  * @coversDefaultClass \\${TESTED_NAMESPACE}\\${TESTED_NAME}
  */
-class ${NAME} extends PHPUnit_Framework_TestCase
+class ${NAME} extends TestCase
 {
     /**
-     * @return ${TESTED_NAME}
+     * @return void
      *
      * @covers ::__construct
      */
-    public function testConstructor(): ${TESTED_NAME}
+    public function testConstructor()
     {
-        return new ${TESTED_NAME}();
+        $this->assertInstanceOf(
+            ${TESTED_NAME}::class,
+            new ${TESTED_NAME}()
+        );
     }
 }
