@@ -3,7 +3,7 @@
     "description": "MediaCT PHP Coding Standard PHPStorm integration",
     "type": "composer-plugin",
     "homepage": "https://bitbucket.org/mediactbv/coding-standard-phpstorm",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "MediaCT",
