@@ -2,3 +2,13 @@
 # coding-standard-phpstorm
 
 Sets up PhpStorm coding standards for a project.
+
+## Installation
+This package is installed using Composer:
+```
+composer require mediact/coding-standard-phpstorm
+```
+
+## Configuration
+Use PHPStorm's `file > settings > language > PHP` menu to point to the installed binaries for PHPMD and PHPCS.
+
