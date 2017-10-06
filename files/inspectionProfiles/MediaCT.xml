@@ -201,5 +201,6 @@
       <option name="WARNING_HIGHLIGHT_LEVEL_NAME" value="WEAK WARNING" />
       <option name="SHOW_SNIFF_NAMES" value="true" />
     </inspection_tool>
+    <inspection_tool class="RouteSettingDeprecatedInspection" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
 </component>
