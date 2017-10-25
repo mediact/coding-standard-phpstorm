@@ -16,7 +16,8 @@
     "require-dev": {
         "composer/composer": "^1.3",
         "phpunit/phpunit": "^5.5",
-        "raveren/kint": "^1.0",
+        "mediact/testing-suite": "@stable",
+        "kint-php/kint": "@stable",
         "mikey179/vfsstream": "^1.6"
     },
     "autoload": {
@@ -30,6 +31,9 @@
         }
     },
     "extra": {
-        "class": "Mediact\\CodingStandard\\PhpStorm\\Plugin"
+        "class": "Mediact\\CodingStandard\\PhpStorm\\Plugin",
+        "grumphp": {
+            "config-default-path": "vendor/mediact/testing-suite/config/default/grumphp.yml"
+        }
     }
 }
