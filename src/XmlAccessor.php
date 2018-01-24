@@ -58,6 +58,7 @@ class XmlAccessor implements XmlAccessorInterface
             ) {
                 throw new InvalidArgumentException('Invalid descendant path');
             }
+
             $name       = array_shift($childProperties);
             $attributes = count($childProperties)
                 ? array_shift($childProperties)
@@ -65,6 +66,7 @@ class XmlAccessor implements XmlAccessorInterface
 
             $element = $this->getChild($element, $name, $attributes);
         }
+
         return $element;
     }
 
@@ -105,8 +107,10 @@ class XmlAccessor implements XmlAccessorInterface
             foreach ($attributes as $key => $value) {
                 $parts[] = '@' . $key . '="' . $value . '"';
             }
+
             $xpath .= '[' . implode(' and ', $parts) . ']';
         }
+
         return $xpath;
     }
 }

@@ -52,10 +52,10 @@ class Environment implements EnvironmentInterface
         Composer $composer
     ) {
         $this->ideConfigFilesystem = $ideConfigFilesystem;
-        $this->defaultsFilesystem = $defaultsFilesystem;
-        $this->projectFilesystem = $projectFilesystem;
-        $this->inputOutput = $inputOutput;
-        $this->composer = $composer;
+        $this->defaultsFilesystem  = $defaultsFilesystem;
+        $this->projectFilesystem   = $projectFilesystem;
+        $this->inputOutput         = $inputOutput;
+        $this->composer            = $composer;
     }
 
     /**
