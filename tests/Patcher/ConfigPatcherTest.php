@@ -7,39 +7,19 @@ namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher;
 
 use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_TestCase;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcher;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcher
  */
-class ConfigPatcherTest extends PHPUnit_Framework_TestCase
+class ConfigPatcherTest extends TestCase
 {
-    /**
-     * @return ConfigPatcher
-     *
-     * @covers ::__construct
-     */
-    public function testConstructor(): ConfigPatcher
-    {
-        return new ConfigPatcher();
-    }
-
-    /**
-     * @return ConfigPatcher
-     *
-     * @covers ::__construct
-     */
-    public function testConstructorWithPatchers(): ConfigPatcher
-    {
-        return new ConfigPatcher(
-            [$this->createMock(ConfigPatcherInterface::class)]
-        );
-    }
-
     /**
      * @return void
      *
+     * @covers ::__construct
      * @covers ::patch
      */
     public function testPatch()

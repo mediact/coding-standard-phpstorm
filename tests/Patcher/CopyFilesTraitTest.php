@@ -8,12 +8,13 @@ namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher;
 use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use Mediact\CodingStandard\PhpStorm\Tests\Patcher\TestDouble\CopyFilesPatcherDouble;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_TestCase;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Patcher\CopyFilesTrait
  */
-class CopyFilesTraitTest extends PHPUnit_Framework_TestCase
+class CopyFilesTraitTest extends TestCase
 {
     /**
      * @return void

@@ -13,64 +13,32 @@ use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_TestCase;
 use Mediact\CodingStandard\PhpStorm\Plugin;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Plugin
  */
-class PluginTest extends PHPUnit_Framework_TestCase
+class PluginTest extends TestCase
 {
     /**
-     * @return Plugin
-     * @covers ::__construct
-     */
-    public function testConstructor(): Plugin
-    {
-        return new Plugin();
-    }
-
-    /**
-     * @return Plugin
-     * @covers ::__construct
-     */
-    public function testConstructorWithPatcher(): Plugin
-    {
-        return new Plugin(
-            $this->createMock(ConfigPatcherInterface::class)
-        );
-    }
-
-    /**
-     * @depends testConstructor
-     *
-     * @param Plugin $plugin
-     *
      * @return void
-     *
-     * @covers ::activate
-     */
-    public function testActivate(Plugin $plugin)
-    {
-        $plugin->activate(
-            $this->createMock(Composer::class),
-            $this->createMock(IOInterface::class)
-        );
-    }
-
-    /**
-     * @return array
      *
      * @covers ::getSubscribedEvents
      */
-    public function testGetSubscribedEvents(): array
+    public function testGetSubscribedEvents()
     {
-        return Plugin::getSubscribedEvents();
+        $this->assertInternalType(
+            'array',
+            Plugin::getSubscribedEvents()
+        );
     }
 
     /**
      * @return void
      *
+     * @covers ::__construct
      * @covers ::onNewCodeEvent
      */
     public function testOnNewCodeEvent()

@@ -9,29 +9,19 @@ use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use Mediact\CodingStandard\PhpStorm\Patcher\InspectionsPatcher;
 use Mediact\CodingStandard\PhpStorm\XmlAccessorInterface;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_TestCase;
 use SimpleXMLElement;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Patcher\InspectionsPatcher
  */
-class InspectionsPatcherTest extends PHPUnit_Framework_TestCase
+class InspectionsPatcherTest extends TestCase
 {
-    /**
-     * @return InspectionsPatcher
-     *
-     * @covers ::__construct
-     */
-    public function testConstructor(): InspectionsPatcher
-    {
-        return new InspectionsPatcher(
-            $this->createMock(XmlAccessorInterface::class)
-        );
-    }
-
     /**
      * @return void
      *
+     * @covers ::__construct
      * @covers ::patch
      * @covers ::setProjectProfiles
      */

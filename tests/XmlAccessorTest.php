@@ -5,13 +5,14 @@
  */
 namespace Mediact\CodingStandard\PhpStorm\Tests;
 
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_TestCase;
 use Mediact\CodingStandard\PhpStorm\XmlAccessor;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\XmlAccessor
  */
-class XmlAccessorTest extends PHPUnit_Framework_TestCase
+class XmlAccessorTest extends TestCase
 {
     /**
      * @param string $input
@@ -42,6 +43,7 @@ class XmlAccessorTest extends PHPUnit_Framework_TestCase
         foreach ($extraAttributes as $key => $value) {
             $child->addAttribute($key, $value);
         }
+
         $this->assertEquals(trim($expected), trim($xml->asXML()));
     }
 
@@ -98,6 +100,7 @@ class XmlAccessorTest extends PHPUnit_Framework_TestCase
         foreach ($extraAttributes as $key => $value) {
             $child->addAttribute($key, $value);
         }
+
         $this->assertEquals(trim($expected), trim($xml->asXML()));
     }
 
