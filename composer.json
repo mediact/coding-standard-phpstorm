@@ -15,7 +15,6 @@
     },
     "require-dev": {
         "composer/composer": "^1.3",
-        "phpunit/phpunit": "^5.5",
         "mediact/testing-suite": "@stable",
         "kint-php/kint": "@stable",
         "mikey179/vfsstream": "^1.6"
@@ -35,5 +34,16 @@
         "grumphp": {
             "config-default-path": "vendor/mediact/testing-suite/config/default/grumphp.yml"
         }
+    },
+    "archive": {
+        "exclude": [
+            "/bitbucket-pipelines.yml",
+            "/.gitignore",
+            "/tests",
+            "/phpunit.xml",
+            "/phpmd.xml",
+            "/phpstan.neon",
+            "/phpcs.xml"
+        ]
     }
 }
