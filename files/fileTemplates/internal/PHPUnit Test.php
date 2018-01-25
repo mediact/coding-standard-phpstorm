@@ -18,8 +18,11 @@ class ${NAME} extends TestCase
      *
      * @covers ::__construct
      */
-    public function test(): void
-    {
-        new ${TESTED_NAME}();
+    public function testConstructor(): void
+{
+    $this->assertInstanceOf(
+        ${TESTED_NAME}::class,
+            new ${TESTED_NAME}()
+        );
     }
 }
