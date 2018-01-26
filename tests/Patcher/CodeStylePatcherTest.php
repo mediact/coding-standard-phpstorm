@@ -7,13 +7,14 @@ namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher;
 
 use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_TestCase;
 use Mediact\CodingStandard\PhpStorm\Patcher\CodeStylePatcher;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Patcher\CodeStylePatcher
  */
-class CodeStylePatcherTest extends PHPUnit_Framework_TestCase
+class CodeStylePatcherTest extends TestCase
 {
     /**
      * @return void

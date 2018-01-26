@@ -55,6 +55,7 @@ class Filesystem implements FilesystemInterface
         if (!is_readable($path) || !is_file($path)) {
             throw new RuntimeException($path . ' is not readable file');
         }
+
         return file_get_contents($path);
     }
 
@@ -76,9 +77,11 @@ class Filesystem implements FilesystemInterface
         if (!file_exists($path) && !is_writable(dirname($path))) {
             throw new RuntimeException(dirname($path) . ' is not writable');
         }
+
         if (file_exists($path) && !is_writable($path)) {
             throw new RuntimeException($path . ' is not writable');
         }
+
         return file_put_contents($path, $contents);
     }
 
@@ -100,12 +103,14 @@ class Filesystem implements FilesystemInterface
                     $directory . ' is not a directory.'
                 );
             }
+
             if (!mkdir($directory, 0777, true)) {
                 throw new RuntimeException(
                     $directory . ' can not be created.'
                 );
             }
         }
+
         return true;
     }
 
@@ -145,7 +150,7 @@ class Filesystem implements FilesystemInterface
             $files[] = preg_replace(
                 sprintf('/^%s/', preg_quote($this->root, '/')),
                 '',
-                $fileInfo->getPathName()
+                $fileInfo->getPathname()
             );
         }
 

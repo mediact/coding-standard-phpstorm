@@ -8,6 +8,7 @@ namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher;
 use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use Mediact\CodingStandard\PhpStorm\XmlAccessorInterface;
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_TestCase;
 use Mediact\CodingStandard\PhpStorm\Patcher\FileTemplatesPatcher;
 use SimpleXMLElement;
@@ -15,23 +16,12 @@ use SimpleXMLElement;
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Patcher\FileTemplatesPatcher
  */
-class FileTemplatesPatcherTest extends PHPUnit_Framework_TestCase
+class FileTemplatesPatcherTest extends TestCase
 {
-    /**
-     * @return FileTemplatesPatcher
-     *
-     * @covers ::__construct
-     */
-    public function testConstructor(): FileTemplatesPatcher
-    {
-        return new FileTemplatesPatcher(
-            $this->createMock(XmlAccessorInterface::class)
-        );
-    }
-
     /**
      * @return void
      *
+     * @covers ::__construct
      * @covers ::patch
      * @covers ::patchWorkspaceConfig
      */

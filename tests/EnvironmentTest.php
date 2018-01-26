@@ -8,107 +8,43 @@ namespace Mediact\CodingStandard\PhpStorm\Tests;
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Mediact\CodingStandard\PhpStorm\Environment;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Environment
  */
-class EnvironmentTest extends PHPUnit_Framework_TestCase
+class EnvironmentTest extends TestCase
 {
     /**
-     * @return Environment
+     * @return void
      *
      * @covers ::__construct
+     * @covers ::getIdeConfigFilesystem
+     * @covers ::getDefaultsFilesystem
+     * @covers ::getInputOutput
+     * @covers ::getComposer
      */
-    public function testConstructor(): Environment
+    public function testAccess()
     {
-        return new Environment(
-            $this->createMock(FilesystemInterface::class),
-            $this->createMock(FilesystemInterface::class),
-            $this->createMock(FilesystemInterface::class),
-            $this->createMock(IOInterface::class),
-            $this->createMock(Composer::class)
-        );
-    }
+        $ideConfigFs = $this->createMock(FilesystemInterface::class);
+        $defaultsFs  = $this->createMock(FilesystemInterface::class);
+        $projectFs   = $this->createMock(FilesystemInterface::class);
+        $inputOutput = $this->createMock(IOInterface::class);
+        $composer    = $this->createMock(Composer::class);
 
-    /**
-     * @param Environment $environment
-     *
-     * @return void
-     *
-     * @depends testConstructor
-     * @covers  ::getIdeConfigFilesystem
-     */
-    public function testGetIdeConfigFilesystem(Environment $environment)
-    {
-        $this->assertInstanceOf(
-            FilesystemInterface::class,
-            $environment->getIdeConfigFilesystem()
+        $environment = new Environment(
+            $ideConfigFs,
+            $defaultsFs,
+            $projectFs,
+            $inputOutput,
+            $composer
         );
-    }
 
-    /**
-     * @param Environment $environment
-     *
-     * @return void
-     *
-     * @depends testConstructor
-     * @covers  ::getDefaultsFilesystem
-     */
-    public function testGetDefaultsFilesystem(Environment $environment)
-    {
-        $this->assertInstanceOf(
-            FilesystemInterface::class,
-            $environment->getDefaultsFilesystem()
-        );
-    }
-
-    /**
-     * @param Environment $environment
-     *
-     * @return void
-     *
-     * @depends testConstructor
-     * @covers  ::getProjectFilesystem
-     */
-    public function testGetRootFilesystem(Environment $environment)
-    {
-        $this->assertInstanceOf(
-            FilesystemInterface::class,
-            $environment->getProjectFilesystem()
-        );
-    }
-
-    /**
-     * @param Environment $environment
-     *
-     * @return void
-     *
-     * @depends testConstructor
-     * @covers  ::getInputOutput
-     */
-    public function testGetInputOutput(Environment $environment)
-    {
-        $this->assertInstanceOf(
-            IOInterface::class,
-            $environment->getInputOutput()
-        );
-    }
-
-    /**
-     * @param Environment $environment
-     *
-     * @return void
-     *
-     * @depends testConstructor
-     * @covers  ::getComposer
-     */
-    public function testGetComposer(Environment $environment)
-    {
-        $this->assertInstanceOf(
-            Composer::class,
-            $environment->getComposer()
-        );
+        $this->assertSame($ideConfigFs, $environment->getIdeConfigFilesystem());
+        $this->assertSame($defaultsFs, $environment->getDefaultsFilesystem());
+        $this->assertSame($projectFs, $environment->getProjectFilesystem());
+        $this->assertSame($inputOutput, $environment->getInputOutput());
+        $this->assertSame($composer, $environment->getComposer());
     }
 }

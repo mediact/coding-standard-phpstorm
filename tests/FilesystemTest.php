@@ -7,13 +7,14 @@ namespace Mediact\CodingStandard\PhpStorm\Tests;
 
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Mediact\CodingStandard\PhpStorm\Filesystem;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Filesystem
+ * @SuppressWarnings(PHPMD)
  */
-class FilesystemTest extends PHPUnit_Framework_TestCase
+class FilesystemTest extends TestCase
 {
     /**
      * @var vfsStreamDirectory
@@ -29,20 +30,21 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Filesystem
+     * @return void
+     *
      * @covers ::__construct
      */
-    public function testConstructor(): Filesystem
+    public function testConstructor()
     {
-        return new Filesystem($this->vfs->url());
+        $this->assertInstanceOf(
+            Filesystem::class,
+            new Filesystem($this->vfs->url())
+        );
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param string     $path
-     * @param string     $contents
-     * @param Filesystem $filesystem
+     * @param string $path
+     * @param string $contents
      *
      * @return void
      *
@@ -52,52 +54,46 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
      */
     public function testRead(
         string $path,
-        string $contents,
-        Filesystem $filesystem
+        string $contents
     ) {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $this->createFile($path, $contents);
         $this->assertEquals($contents, $filesystem->read($path));
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param Filesystem $filesystem
-     *
      * @return void
      *
      * @expectedException \RuntimeException
      *
      * @covers ::read
      */
-    public function testReadExceptionReadable(Filesystem $filesystem)
+    public function testReadExceptionReadable()
     {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $this->createFile('foo.txt', 'foo', 0000);
         $filesystem->read('foo.txt');
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param Filesystem $filesystem
-     *
      * @return void
      *
      * @expectedException \RuntimeException
      *
      * @covers ::read
      */
-    public function testReadExceptionDir(Filesystem $filesystem)
+    public function testReadExceptionDir()
     {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $filesystem->read('');
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param string     $path
-     * @param string     $contents
-     * @param Filesystem $filesystem
+     * @param string $path
+     * @param string $contents
      *
      * @return void
      *
@@ -107,20 +103,18 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
      */
     public function testHas(
         string $path,
-        string $contents,
-        Filesystem $filesystem
+        string $contents
     ) {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $this->assertFalse($filesystem->has($path));
         $this->createFile($path, $contents);
         $this->assertTrue($filesystem->has($path));
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param string     $path
-     * @param string     $contents
-     * @param Filesystem $filesystem
+     * @param string $path
+     * @param string $contents
      *
      * @return void
      *
@@ -130,45 +124,40 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
      */
     public function testPut(
         string $path,
-        string $contents,
-        Filesystem $filesystem
+        string $contents
     ) {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $filesystem->put($path, $contents);
         $this->assertEquals($contents, $this->readFile($path));
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param Filesystem $filesystem
-     *
      * @return void
      *
      * @expectedException \RuntimeException
      *
      * @covers ::put
      */
-    public function testPutExceptionWritableFile(
-        Filesystem $filesystem
-    ) {
+    public function testPutExceptionWritableFile()
+    {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $this->createFile('path/to/foo.txt', 'foo', 0000);
         $filesystem->put('path/to/foo.txt', 'new_foo');
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param Filesystem $filesystem
-     *
      * @return void
      *
      * @expectedException \RuntimeException
      *
      * @covers ::put
      */
-    public function testPutExceptionWritableDirectory(
-        Filesystem $filesystem
-    ) {
+    public function testPutExceptionWritableDirectory()
+    {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $this->createDir('path/to', 0000);
         $filesystem->put('path/to/foo.txt', 'new_foo');
     }
@@ -187,62 +176,53 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param Filesystem $filesystem
-     *
      * @return void
      *
      * @covers ::createDir
      */
-    public function testCreateDir(Filesystem $filesystem)
+    public function testCreateDir()
     {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $this->assertFalse($this->dirExists('foo/bar'));
         $filesystem->createDir('foo/bar');
         $this->assertTrue($this->dirExists('foo/bar'));
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param Filesystem $filesystem
-     *
      * @return void
      *
      * @expectedException \RuntimeException
      *
      * @covers ::createDir
      */
-    public function testCreateDirExceptionFile(Filesystem $filesystem)
+    public function testCreateDirExceptionFile()
     {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $this->createFile('foo/bar', 'foo');
         $filesystem->createDir('foo/bar');
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param Filesystem $filesystem
-     *
      * @return void
      *
      * @expectedException \RuntimeException
      *
      * @covers ::createDir
      */
-    public function testCreateDirExceptionWritable(Filesystem $filesystem)
+    public function testCreateDirExceptionWritable()
     {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $this->createDir('foo', 0000);
         $filesystem->createDir('foo/bar');
     }
 
     /**
-     * @depends testConstructor
-     *
      * @param array      $files
      * @param string     $path
      * @param array      $expected
-     * @param Filesystem $filesystem
      *
      * @return void
      *
@@ -253,9 +233,10 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
     public function testListFiles(
         array $files,
         string $path,
-        array $expected,
-        Filesystem $filesystem
+        array $expected
     ) {
+        $filesystem = new Filesystem($this->vfs->url());
+
         foreach ($files as $file) {
             $this->createFile($file, '');
         }
@@ -264,19 +245,16 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param Filesystem $filesystem
-     *
      * @return void
      *
      * @expectedException \RuntimeException
      *
      * @covers ::listFiles
      */
-    public function testListFilesException(
-        Filesystem $filesystem
-    ) {
+    public function testListFilesException()
+    {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $filesystem->listFiles('foo/bar');
     }
 
@@ -305,16 +283,14 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testConstructor
-     *
-     * @param Filesystem $filesystem
-     *
      * @return void
      *
      * @covers ::getPath
      */
-    public function testGetPath(Filesystem $filesystem)
+    public function testGetPath()
     {
+        $filesystem = new Filesystem($this->vfs->url());
+
         $this->createFile('path/to/foo.txt', 'foo');
         $this->assertTrue($filesystem->has('///path//to/foo.txt'));
     }
@@ -351,6 +327,7 @@ class FilesystemTest extends PHPUnit_Framework_TestCase
         if (!file_exists($url)) {
             mkdir($url, 0777, true);
         }
+
         chmod($url, $chmod);
     }
 
