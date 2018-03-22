@@ -13,16 +13,4 @@ use ${TESTED_NAMESPACE}\\${TESTED_NAME};
  */
 class ${NAME} extends TestCase
 {
-    /**
-     * @return void
-     *
-     * @covers ::__construct
-     */
-    public function testConstructor(): void
-    {
-        $this->assertInstanceOf(
-            ${TESTED_NAME}::class,
-            new ${TESTED_NAME}()
-        );
-    }
 }
