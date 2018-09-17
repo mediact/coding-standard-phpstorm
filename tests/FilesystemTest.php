@@ -220,9 +220,9 @@ class FilesystemTest extends TestCase
     }
 
     /**
-     * @param array      $files
-     * @param string     $path
-     * @param array      $expected
+     * @param array  $files
+     * @param string $path
+     * @param array  $expected
      *
      * @return void
      *
