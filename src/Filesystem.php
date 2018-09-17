@@ -147,6 +147,7 @@ class Filesystem implements FilesystemInterface
             if ($fileInfo->isDir()) {
                 continue;
             }
+
             $files[] = preg_replace(
                 sprintf('/^%s/', preg_quote($this->root, '/')),
                 '',
