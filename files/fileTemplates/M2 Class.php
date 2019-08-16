@@ -9,4 +9,3 @@ class ${NAME}
 {
     #[[$END$]]#
 }
-
