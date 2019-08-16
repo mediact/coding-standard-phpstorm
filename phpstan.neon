@@ -1,4 +1,3 @@
 parameters:
   excludes_analyse:
-    ignoreErrors:
-        - '#  Start tag expected, '<' not found #i'
+    - %rootDir%/../../../files/*
