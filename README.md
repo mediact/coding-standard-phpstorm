@@ -24,7 +24,7 @@ At this moment there have been live templates created for:
 * Registration
 * System
 
-Check out [this link](COMMANDSother_file.md) to see more info
+Check out [this link](COMMANDS.md) to see more info
 
 ## Templates
 You now get live templates that can be be found in `file > settings > Editor -> File and Code Templates` .
@@ -47,4 +47,4 @@ At this moment there have been templates created for:
 * System 
 * System Include
 
-Check out [this link](COMMANDSother_file.md) to see all commando's that can be used.
+Check out [this link](COMMANDS.md) to see all commando's that can be used.
