@@ -24,7 +24,7 @@ class FilesystemTest extends TestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->vfs = vfsStream::setup(sha1(__FILE__));
     }
