@@ -22,7 +22,7 @@
     <includes_templates>
       <template name="M2 PHP File Header.php" reformat="false" live-template-enabled="true" />
       <template name="M2 Settings.php" reformat="false" live-template-enabled="true" />
-      <template name="M2 XML File Header.php" reformat="false" live-template-enabled="true" />
+      <template name="M2 XML File Header.xml" reformat="false" live-template-enabled="true" />
     </includes_templates>
   </component>
 </project>

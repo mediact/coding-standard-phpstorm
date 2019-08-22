@@ -45,6 +45,12 @@ class FileTemplatesPatcher implements ConfigPatcherInterface
             'fileTemplates'
         );
 
+        $this->copyDirectory(
+            $environment->getDefaultsFilesystem(),
+            $environment->getIdeConfigFilesystem(),
+            'templates'
+        );
+
         $this->copyFile(
             $environment->getDefaultsFilesystem(),
             $environment->getIdeConfigFilesystem(),
