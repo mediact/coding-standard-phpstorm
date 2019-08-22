@@ -5,7 +5,6 @@ parameters:
   composer.strict: false
   xmllint.ignore_patterns:
     # Uses an incomplete definition, which conflicts when <exclude-pattern>
-    # is defined.
     - /^phpcs.xml$/
     - /^phpmd.xml$/
     - '#^files/.*\.xml$#'
