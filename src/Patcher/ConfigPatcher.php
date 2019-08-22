@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
@@ -30,7 +30,9 @@ class ConfigPatcher implements ConfigPatcherInterface
             : [
                 new CodeStylePatcher(),
                 new FileTemplatesPatcher($xmlAccessor),
-                new InspectionsPatcher($xmlAccessor)
+                new InspectionsPatcher($xmlAccessor),
+                new TemplateSettingsPatcher($xmlAccessor),
+                new LiveTemplatesPatcher()
             ];
     }
 
@@ -43,7 +45,7 @@ class ConfigPatcher implements ConfigPatcherInterface
      */
     public function patch(
         EnvironmentInterface $environment
-    ) {
+    ): void {
         foreach ($this->patchers as $patcher) {
             $patcher->patch($environment);
         }

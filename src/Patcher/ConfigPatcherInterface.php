@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
@@ -19,5 +19,5 @@ interface ConfigPatcherInterface
      */
     public function patch(
         EnvironmentInterface $environment
-    );
+    ): void;
 }

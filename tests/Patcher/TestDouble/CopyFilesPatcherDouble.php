@@ -22,7 +22,7 @@ class CopyFilesPatcherDouble implements ConfigPatcherInterface
      */
     public function patch(
         EnvironmentInterface $environment
-    ) {
+    ): void {
         $this->copyDirectory(
             $environment->getDefaultsFilesystem(),
             $environment->getIdeConfigFilesystem(),

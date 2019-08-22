@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
@@ -22,9 +22,9 @@ interface XmlAccessorInterface
      */
     public function getChild(
         SimpleXMLElement $element,
-        $name,
+        string $name,
         array $attributes = []
-    );
+    ): SimpleXMLElement;
 
     /**
      * Get a descendant, create it when it does not exist.
@@ -39,7 +39,7 @@ interface XmlAccessorInterface
     public function getDescendant(
         SimpleXMLElement $element,
         array $path
-    );
+    ): SimpleXMLElement;
 
     /**
      * Set the attributes of a node.
@@ -52,5 +52,5 @@ interface XmlAccessorInterface
     public function setAttributes(
         SimpleXMLElement $element,
         array $attributes
-    );
+    ): void;
 }

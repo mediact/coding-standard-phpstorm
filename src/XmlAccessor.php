@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
@@ -22,9 +22,9 @@ class XmlAccessor implements XmlAccessorInterface
      */
     public function getChild(
         SimpleXMLElement $element,
-        $name,
+        string $name,
         array $attributes = []
-    ) {
+    ): SimpleXMLElement {
         $xpath = $name . $this->getAttributesXpath($attributes);
 
         $result = $element->xpath($xpath);
@@ -45,13 +45,12 @@ class XmlAccessor implements XmlAccessorInterface
      * @param array            $path
      *
      * @return SimpleXMLElement
-     *
      * @throws InvalidArgumentException When the descendant path is invalid.
      */
     public function getDescendant(
         SimpleXMLElement $element,
         array $path
-    ) {
+    ): SimpleXMLElement {
         foreach ($path as $childProperties) {
             if (!is_array($childProperties)
                 || empty($childProperties)
@@ -81,7 +80,7 @@ class XmlAccessor implements XmlAccessorInterface
     public function setAttributes(
         SimpleXMLElement $element,
         array $attributes
-    ) {
+    ): void {
         $storage = $element->attributes();
         foreach ($attributes as $key => $value) {
             if (isset($storage->{$key})) {
@@ -99,7 +98,7 @@ class XmlAccessor implements XmlAccessorInterface
      *
      * @return string
      */
-    private function getAttributesXpath(array $attributes)
+    private function getAttributesXpath(array $attributes): string
     {
         $xpath = '';
         if (!empty($attributes)) {

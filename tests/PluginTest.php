@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
@@ -60,10 +60,6 @@ class PluginTest extends TestCase
             ->willReturn($config);
 
         $output = $this->createMock(IOInterface::class);
-        $output
-            ->expects($this->once())
-            ->method('isVerbose')
-            ->willReturn(true);
 
         $output
             ->expects($this->once())
