@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
@@ -42,7 +42,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      *
      * @return void
      */
-    public function activate(Composer $composer, IOInterface $inputOutput)
+    public function activate(Composer $composer, IOInterface $inputOutput): void
     {
     }
 
@@ -51,7 +51,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      *
      * @return array
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ScriptEvents::POST_INSTALL_CMD => 'onNewCodeEvent',
@@ -66,17 +66,20 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      *
      * @return void
      */
-    public function onNewCodeEvent(Event $event)
+    public function onNewCodeEvent(Event $event): void
     {
         $vendorDir   = $event->getComposer()->getConfig()->get('vendor-dir');
         $projectDir  = dirname($vendorDir);
         $phpStormDir = $projectDir . DIRECTORY_SEPARATOR . '.idea';
         $filesDir    = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'files';
 
+        $phpStormDefaultPath = $this->getPhpStormDefaultPath();
+
         if (is_dir($phpStormDir) && is_dir($filesDir)) {
             $this->patcher->patch(
                 new Environment(
                     new Filesystem($phpStormDir),
+                    new Filesystem($phpStormDefaultPath),
                     new Filesystem($filesDir),
                     new Filesystem($projectDir),
                     $event->getIO(),
@@ -85,9 +88,30 @@ class Plugin implements PluginInterface, EventSubscriberInterface
             );
 
             $output = $event->getIO();
-            if ($output->isVerbose()) {
-                $output->write('Patched the PhpStorm config');
-            }
+            $output->write('Patched the PhpStorm config');
         }
+    }
+
+    /**
+     * Get the latest version of clients phpstorm directory
+     *
+     * @return string
+     */
+    public function getPhpStormDefaultPath(): string
+    {
+        $phpStormDefaultPath = '';
+
+        if (isset($_SERVER['HOME'])) {
+            $home = $_SERVER['HOME'];
+        } else {
+            $home = getenv("HOME");
+        }
+
+        $phpStormDefaultPaths = array_reverse(glob("$home/.[pP]hp[sS]torm201*/config/"));
+        if (! empty($phpStormDefaultPaths)) {
+            $phpStormDefaultPath = reset($phpStormDefaultPaths);
+        }
+
+        return $phpStormDefaultPath;
     }
 }

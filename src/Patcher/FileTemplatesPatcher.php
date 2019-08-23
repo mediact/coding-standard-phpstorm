@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
@@ -38,7 +38,7 @@ class FileTemplatesPatcher implements ConfigPatcherInterface
      */
     public function patch(
         EnvironmentInterface $environment
-    ) {
+    ): void {
         $this->copyDirectory(
             $environment->getDefaultsFilesystem(),
             $environment->getIdeConfigFilesystem(),
@@ -59,7 +59,7 @@ class FileTemplatesPatcher implements ConfigPatcherInterface
      */
     private function patchWorkspaceConfig(
         FilesystemInterface $ideConfigFs
-    ) {
+    ): void {
         if (!$ideConfigFs->has('workspace.xml')) {
             return;
         }

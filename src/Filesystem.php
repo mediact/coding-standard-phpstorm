@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
@@ -16,7 +16,7 @@ class Filesystem implements FilesystemInterface
     /**
      * @var string
      */
-    private $root;
+    private $root = '';
 
     /**
      * Constructor.
@@ -25,7 +25,9 @@ class Filesystem implements FilesystemInterface
      */
     public function __construct($root)
     {
-        $this->root = rtrim($root, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        if (! empty($root)) {
+            $this->root = rtrim($root, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        }
     }
 
     /**
@@ -35,7 +37,7 @@ class Filesystem implements FilesystemInterface
      *
      * @return bool
      */
-    public function has($path)
+    public function has(string $path): bool
     {
         return file_exists($this->getPath($path));
     }
@@ -46,10 +48,9 @@ class Filesystem implements FilesystemInterface
      * @param string $path
      *
      * @return string
-     *
      * @throws RuntimeException When the path is not readable.
      */
-    public function read($path)
+    public function read(string $path): string
     {
         $path = $this->getPath($path);
         if (!is_readable($path) || !is_file($path)) {
@@ -66,10 +67,9 @@ class Filesystem implements FilesystemInterface
      * @param string $contents
      *
      * @return bool
-     *
      * @throws RuntimeException When the path is not writable.
      */
-    public function put($path, $contents)
+    public function put(string $path, string $contents): bool
     {
         $directory = dirname($path);
         $this->createDir($directory);
@@ -82,7 +82,7 @@ class Filesystem implements FilesystemInterface
             throw new RuntimeException($path . ' is not writable');
         }
 
-        return file_put_contents($path, $contents);
+        return (bool) file_put_contents($path, $contents);
     }
 
     /**
@@ -91,10 +91,9 @@ class Filesystem implements FilesystemInterface
      * @param string $path
      *
      * @return bool
-     *
      * @throws RuntimeException When the directory can not be created.
      */
-    public function createDir($path)
+    public function createDir(string $path): bool
     {
         $directory = $this->getPath($path);
         if (!is_dir($directory)) {
@@ -120,10 +119,9 @@ class Filesystem implements FilesystemInterface
      * @param string $path
      *
      * @return array
-     *
      * @throws RuntimeException When the path is not a directory.
      */
-    public function listFiles($path = '')
+    public function listFiles(string $path = ''): array
     {
         $directory = $this->getPath($path);
         if (!is_dir($directory)) {
@@ -165,7 +163,7 @@ class Filesystem implements FilesystemInterface
      *
      * @return string
      */
-    private function getPath($path)
+    private function getPath(string $path): string
     {
         return $this->root .
             ltrim(
@@ -176,5 +174,15 @@ class Filesystem implements FilesystemInterface
                 ),
                 DIRECTORY_SEPARATOR
             );
+    }
+
+    /**
+     * Get root
+     *
+     * @return string
+     */
+    public function getRoot(): string
+    {
+        return $this->root;
     }
 }

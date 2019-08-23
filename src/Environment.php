@@ -3,6 +3,7 @@
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
+
 namespace Mediact\CodingStandard\PhpStorm;
 
 use Composer\Composer;
@@ -14,22 +15,22 @@ class Environment implements EnvironmentInterface
      * @var FilesystemInterface
      */
     private $ideConfigFilesystem;
-
+    /**
+     * @var FilesystemInterface
+     */
+    private $ideDefaultFilesystem;
     /**
      * @var FilesystemInterface
      */
     private $defaultsFilesystem;
-
     /**
      * @var FilesystemInterface
      */
     private $projectFilesystem;
-
     /**
      * @var IOInterface
      */
     private $inputOutput;
-
     /**
      * @var Composer
      */
@@ -39,6 +40,7 @@ class Environment implements EnvironmentInterface
      * Constructor.
      *
      * @param FilesystemInterface $ideConfigFilesystem
+     * @param FilesystemInterface $ideDefaultFileSystem
      * @param FilesystemInterface $defaultsFilesystem
      * @param FilesystemInterface $projectFilesystem
      * @param IOInterface         $inputOutput
@@ -46,16 +48,18 @@ class Environment implements EnvironmentInterface
      */
     public function __construct(
         FilesystemInterface $ideConfigFilesystem,
+        FilesystemInterface $ideDefaultFileSystem,
         FilesystemInterface $defaultsFilesystem,
         FilesystemInterface $projectFilesystem,
         IOInterface $inputOutput,
         Composer $composer
     ) {
-        $this->ideConfigFilesystem = $ideConfigFilesystem;
-        $this->defaultsFilesystem  = $defaultsFilesystem;
-        $this->projectFilesystem   = $projectFilesystem;
-        $this->inputOutput         = $inputOutput;
-        $this->composer            = $composer;
+        $this->ideConfigFilesystem  = $ideConfigFilesystem;
+        $this->ideDefaultFilesystem = $ideDefaultFileSystem;
+        $this->defaultsFilesystem   = $defaultsFilesystem;
+        $this->projectFilesystem    = $projectFilesystem;
+        $this->inputOutput          = $inputOutput;
+        $this->composer             = $composer;
     }
 
     /**
@@ -66,6 +70,16 @@ class Environment implements EnvironmentInterface
     public function getIdeConfigFilesystem(): FilesystemInterface
     {
         return $this->ideConfigFilesystem;
+    }
+
+    /**
+     * Get a filesystem for the IDE configuration.
+     *
+     * @return FilesystemInterface
+     */
+    public function getIdeDefaultConfigFilesystem(): FilesystemInterface
+    {
+        return $this->ideDefaultFilesystem;
     }
 
     /**

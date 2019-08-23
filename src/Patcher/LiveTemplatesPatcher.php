@@ -7,8 +7,9 @@
 namespace Mediact\CodingStandard\PhpStorm\Patcher;
 
 use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;
+use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 
-class CodeStylePatcher implements ConfigPatcherInterface
+class LiveTemplatesPatcher implements ConfigPatcherInterface
 {
     use CopyFilesTrait;
 
@@ -22,10 +23,12 @@ class CodeStylePatcher implements ConfigPatcherInterface
     public function patch(
         EnvironmentInterface $environment
     ): void {
-        $this->copyFile(
-            $environment->getDefaultsFilesystem(),
-            $environment->getIdeConfigFilesystem(),
-            'codeStyleSettings.xml'
-        );
+        if (! empty($environment->getIdeDefaultConfigFilesystem()->getRoot())) {
+            $this->copyDirectory(
+                $environment->getDefaultsFilesystem(),
+                $environment->getIdeDefaultConfigFilesystem(),
+                'templates'
+            );
+        }
     }
 }

@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
+
 namespace Mediact\CodingStandard\PhpStorm;
 
 use Composer\Composer;
@@ -16,6 +17,13 @@ interface EnvironmentInterface
      * @return FilesystemInterface
      */
     public function getIdeConfigFilesystem(): FilesystemInterface;
+
+    /**
+     * Get a filesystem for the IDE Default configuration.
+     *
+     * @return FilesystemInterface
+     */
+    public function getIdeDefaultConfigFilesystem(): FilesystemInterface;
 
     /**
      * Get a filesystem for the default configuration.

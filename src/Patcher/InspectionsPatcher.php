@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
@@ -41,7 +41,7 @@ class InspectionsPatcher implements ConfigPatcherInterface
      */
     public function patch(
         EnvironmentInterface $environment
-    ) {
+    ): void {
         $this->copyDirectory(
             $environment->getDefaultsFilesystem(),
             $environment->getIdeConfigFilesystem(),
@@ -58,7 +58,7 @@ class InspectionsPatcher implements ConfigPatcherInterface
      *
      * @return void
      */
-    private function setProjectProfiles(EnvironmentInterface $environment)
+    private function setProjectProfiles(EnvironmentInterface $environment): void
     {
         $projectFs = $environment->getProjectFilesystem();
         if (!$projectFs->has(self::PROJECT_PHPCS)) {
@@ -82,7 +82,7 @@ class InspectionsPatcher implements ConfigPatcherInterface
      *
      * @return void
      */
-    private function setProjectPhpCsProfile(SimpleXMLElement $xml)
+    private function setProjectPhpCsProfile(SimpleXMLElement $xml): void
     {
         $node = $this->xmlAccessor->getDescendant(
             $xml,

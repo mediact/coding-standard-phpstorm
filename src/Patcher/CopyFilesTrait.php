@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
+
 namespace Mediact\CodingStandard\PhpStorm\Patcher;
 
 use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
@@ -21,8 +22,8 @@ trait CopyFilesTrait
     private function copyDirectory(
         FilesystemInterface $source,
         FilesystemInterface $destination,
-        $path
-    ) {
+        string $path
+    ): void {
         foreach ($source->listFiles($path) as $filePath) {
             $this->copyFile($source, $destination, $filePath);
         }
@@ -40,8 +41,8 @@ trait CopyFilesTrait
     private function copyFile(
         FilesystemInterface $source,
         FilesystemInterface $destination,
-        $path
-    ) {
+        string $path
+    ): void {
         $destination->put(
             $path,
             $source->read($path)

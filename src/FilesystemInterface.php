@@ -15,7 +15,7 @@ interface FilesystemInterface
      *
      * @return bool
      */
-    public function has($path);
+    public function has(string $path): bool;
 
     /**
      * Read a path.
@@ -24,7 +24,7 @@ interface FilesystemInterface
      *
      * @return string
      */
-    public function read($path);
+    public function read(string $path): string;
 
     /**
      * Write contents to a path.
@@ -34,7 +34,7 @@ interface FilesystemInterface
      *
      * @return bool
      */
-    public function put($path, $contents);
+    public function put(string $path, string $contents): bool;
 
     /**
      * Create a directory if it does not exist.
@@ -43,7 +43,7 @@ interface FilesystemInterface
      *
      * @return bool
      */
-    public function createDir($path);
+    public function createDir(string $path): bool;
 
     /**
      * List contents of a directory.
@@ -52,5 +52,12 @@ interface FilesystemInterface
      *
      * @return array
      */
-    public function listFiles($path = '');
+    public function listFiles(string $path = ''): array;
+
+    /**
+     * Get the root that has been set.
+     *
+     * @return string
+     */
+    public function getRoot(): string;
 }
