@@ -28,7 +28,7 @@ Check out [this link](COMMANDS.md) to see more info
 
 ## Templates
 You now get live templates that can be be found in `file > settings > Editor -> File and Code Templates` .
-These can be enabled and disabled for if you want to use them or not.
+These can be enabled and disabled for if you want to use them or not. If you don't see the templates please restart PHPstorm.
 At this moment there have been templates created for:
 * ACL
 * Class
