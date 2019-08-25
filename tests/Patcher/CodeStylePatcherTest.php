@@ -24,17 +24,8 @@ class CodeStylePatcherTest extends TestCase
     public function testPatch()
     {
         $ideConfigFs = $this->createMock(FilesystemInterface::class);
-        $ideConfigFs
-            ->expects($this->once())
-            ->method('put')
-            ->with('codeStyleSettings.xml', '<xml/>');
 
         $defaultsFs = $this->createMock(FilesystemInterface::class);
-        $defaultsFs
-            ->expects($this->once())
-            ->method('read')
-            ->with('codeStyleSettings.xml')
-            ->willReturn('<xml/>');
 
         $environment = $this->createConfiguredMock(
             EnvironmentInterface::class,
