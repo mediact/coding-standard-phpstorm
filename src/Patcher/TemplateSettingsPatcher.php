@@ -110,11 +110,10 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
     public function patchIncludes(EnvironmentInterface $environment): void
     {
         foreach (self::INCLUDES_PATH as $fileName) {
-            if (!$environment->getIdeConfigFilesystem()->has("includes/$fileName")) {
-                $this->copyFile(
-                    $environment->getDefaultsFilesystem(),
-                    $environment->getIdeConfigFilesystem(),
-                    $fileName
+            if (!$environment->getIdeConfigFilesystem()->has("fileTemplates/includes/$fileName")) {
+                $environment->getIdeConfigFilesystem()->put(
+                    "fileTemplates/includes/$fileName",
+                    $environment->getDefaultsFilesystem()->read("includes/$fileName")
                 );
             }
         }
