@@ -14,6 +14,12 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
 {
     use CopyFilesTrait;
 
+    const INCLUDES_PATH = [
+        'M2-PHP-File-Header.php',
+        'M2-Settings.php',
+        'M2-XML-File-Header.xml'
+    ];
+
     /**
      * @var XmlAccessorInterface
      */
@@ -40,7 +46,9 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
         EnvironmentInterface $environment
     ): void {
         $this->patchFileTemplateSettings(
-            $environment->getIdeConfigFilesystem(),
+            $environment
+        );
+        $this->patchIncludes(
             $environment
         );
     }
@@ -48,16 +56,14 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
     /**
      * Patch file template settings if exists otherwise create one.
      *
-     * @param FilesystemInterface  $ideConfigFs
      * @param EnvironmentInterface $environment
      *
      * @return void
      */
     public function patchFileTemplateSettings(
-        FilesystemInterface $ideConfigFs,
         EnvironmentInterface $environment
     ): void {
-        if (!$ideConfigFs->has('file.template.settings.xml')) {
+        if (!$environment->getIdeConfigFilesystem()->has('file.template.settings.xml')) {
             $this->copyFile(
                 $environment->getDefaultsFilesystem(),
                 $environment->getIdeConfigFilesystem(),
@@ -65,7 +71,7 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
             );
         } else {
             $xml = simplexml_load_string(
-                $ideConfigFs->read('file.template.settings.xml')
+                $environment->getIdeConfigFilesystem()->read('file.template.settings.xml')
             );
 
             foreach ($this->getFileTemplates() as $xmlTag => $fileTemplateNames) {
@@ -88,8 +94,28 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
                             'live-template-enabled' => 'true'
                         ]
                     );
-                    $ideConfigFs->put('file.template.settings.xml', $xml->asXML());
+                    $environment->getIdeConfigFilesystem()->put('file.template.settings.xml', $xml->asXML());
                 }
+            }
+        }
+    }
+
+    /**
+     * Add copyright files to project if they do not exist
+     *
+     * @param EnvironmentInterface $environment
+     *
+     * @return void
+     */
+    public function patchIncludes(EnvironmentInterface $environment): void
+    {
+        foreach (self::INCLUDES_PATH as $fileName) {
+            if (!$environment->getIdeConfigFilesystem()->has("includes/$fileName")) {
+                $this->copyFile(
+                    $environment->getDefaultsFilesystem(),
+                    $environment->getIdeConfigFilesystem(),
+                    $fileName
+                );
             }
         }
     }
@@ -105,6 +131,7 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
             'default_templates' => [
                 'M2-Acl XML.xml',
                 'M2-Class.php',
+                'M2-Class-Backend-Controller',
                 'M2-Class-Block.php',
                 'M2-Class-Helper.php',
                 'M2-Class-Observer.php',
@@ -112,18 +139,16 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
                 'M2-Config-XML.xml',
                 'M2-Db-schema-XML.xml',
                 'M2-DI.xml',
+                'M2-Events.xml',
                 'M2-Extension-Attributes-XML.xml',
                 'M2-Layout-XML.xml',
+                'M2-Menu.xml',
                 'M2-Module-XML.xml',
                 'M2-Registration.php',
+                'M2-Routes.xml',
                 'M2-Sales-XML.xml',
                 'M2-System-include-XML.xml',
                 'M2-System-XML.xml'
-            ],
-            'includes_templates' => [
-                'M2-PHP-File-Header.php',
-                'M2-Settings.php',
-                'M2-XML-File-Header.xml',
             ]
         ];
     }
