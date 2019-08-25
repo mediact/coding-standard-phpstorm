@@ -148,6 +148,11 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
                 'M2-Sales-XML.xml',
                 'M2-System-include-XML.xml',
                 'M2-System-XML.xml'
+            ],
+            'includes_templates' => [
+                'M2-PHP-File-Header.php',
+                'M2-Settings.php',
+                'M2-XML-File-Header.xml',
             ]
         ];
     }
