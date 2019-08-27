@@ -14,16 +14,15 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
 {
     use CopyFilesTrait;
 
-    const INCLUDES_PATH = [
-        'M2-PHP-File-Header.php',
-        'M2-Settings.php',
-        'M2-XML-File-Header.xml'
-    ];
-
     /**
      * @var XmlAccessorInterface
      */
     private $xmlAccessor;
+
+    /**
+     * @var array
+     */
+    private $includePaths = [];
 
     /**
      * Constructor.
@@ -32,7 +31,12 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
      */
     public function __construct(XmlAccessorInterface $xmlAccessor)
     {
-        $this->xmlAccessor = $xmlAccessor;
+        $this->xmlAccessor  = $xmlAccessor;
+        $this->includePaths = [
+            'M2-PHP-File-Header.php',
+            'M2-Settings.php',
+            'M2-XML-File-Header.xml'
+        ];
     }
 
     /**
@@ -109,7 +113,7 @@ class TemplateSettingsPatcher implements ConfigPatcherInterface
      */
     public function patchIncludes(EnvironmentInterface $environment): void
     {
-        foreach (self::INCLUDES_PATH as $fileName) {
+        foreach ($this->includePaths as $fileName) {
             if (!$environment->getIdeConfigFilesystem()->has("fileTemplates/includes/$fileName")) {
                 $environment->getIdeConfigFilesystem()->put(
                     "fileTemplates/includes/$fileName",
