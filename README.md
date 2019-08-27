@@ -19,6 +19,8 @@ At this moment there have been live templates created for:
 * ACL
 * DB Schema
 * DI
+* Events
+* Menu
 * Module
 * Phtml (WIP)
 * Registration
@@ -32,6 +34,7 @@ These can be enabled and disabled for if you want to use them or not. If no phps
 At this moment there have been templates created for:
 * ACL
 * Class
+* Class - Backend Controller
 * Class - Block
 * Class - Helper
 * Class - Observer
@@ -39,10 +42,13 @@ At this moment there have been templates created for:
 * Config
 * DB Schema
 * DI
+* Events
 * Extension Attributes
 * Layout
+* Menu
 * Module
 * Registration
+* Routes
 * Sales
 * System 
 * System Include
