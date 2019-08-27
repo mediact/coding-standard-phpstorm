@@ -22,10 +22,10 @@ class CodeStylePatcher implements ConfigPatcherInterface
     public function patch(
         EnvironmentInterface $environment
     ): void {
-        $this->copyFile(
+        $this->copyDirectory(
             $environment->getDefaultsFilesystem(),
             $environment->getIdeConfigFilesystem(),
-            'codeStyleSettings.xml'
+            'codeStyles'
         );
     }
 }

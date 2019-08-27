@@ -23,6 +23,7 @@ This way Namespaces and vendor will be automatically filled in.
 
 Available templates:
 * **M2 class**: Default M2 php class.
+* **M2 class - Backend Controller**: PHP class that extends AbstractAction.
 * **M2 class - Block**: PHP class that extends Template class.
 * **M2 class - Helper**: PHP class that extends AbstractHelper
 * **M2 class - Observer**: PHP class that implements ObserverInterface
@@ -70,6 +71,13 @@ Available commands:
 * **m2divirtual**: Create an virtual type
 * **m2dipreference**: Create an preference(rewrite)
 
+## M2 Events
+Available templates:
+* **M2 Events**: Create an events file.
+
+Available commands:
+* **m2eventobserver**: Create an observer
+
 ## M2 Extension Attribute
 Available templates:
 * **M2 Extension Attributes XML**: Create an extension attribute file with default structure.
@@ -77,6 +85,13 @@ Available templates:
 ## M2 Layout
 Available templates:
 * **M2 Layout XML**: Create an layout XML with default structure
+
+## M2 Menu
+Available templates:
+* **M2 Menu XML**: Create an layout XML with default structure
+
+Available commands:
+* **m2menuadd**: Create an menu tag
 
 ## M2 Module
 Available templates:

@@ -14,11 +14,13 @@ Use PHPStorm's `file > settings > language > PHP` menu to point to the installed
 
 ## Live Templates
 You now get live templates that can be be found in `file > settings > Editor -> Live Templates` .
-These can be enabled and disabled for if you want to use them or not.
+These templates can be enabled/disabled.
 At this moment there have been live templates created for:
 * ACL
 * DB Schema
 * DI
+* Events
+* Menu
 * Module
 * Phtml (WIP)
 * Registration
@@ -28,10 +30,11 @@ Check out [this link](COMMANDS.md) to see more info
 
 ## Templates
 You now get live templates that can be be found in `file > settings > Editor -> File and Code Templates` .
-These can be enabled and disabled for if you want to use them or not.
+These can be enabled and disabled for if you want to use them or not. If no phpstorm templates are shown please restart PhpStorm.
 At this moment there have been templates created for:
 * ACL
 * Class
+* Class - Backend Controller
 * Class - Block
 * Class - Helper
 * Class - Observer
@@ -39,10 +42,13 @@ At this moment there have been templates created for:
 * Config
 * DB Schema
 * DI
+* Events
 * Extension Attributes
 * Layout
+* Menu
 * Module
 * Registration
+* Routes
 * Sales
 * System 
 * System Include
