@@ -14,7 +14,7 @@ use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
-use Mediact\CodingStandard\PhpStorm\Plugin;
+use Mediact\CodingStandard\PhpStorm\InstallerPlugin;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\InstallerPlugin
@@ -30,7 +30,7 @@ class InstallerPluginTest extends TestCase
     {
         $this->assertInternalType(
             'array',
-            Plugin::getSubscribedEvents()
+            InstallerPlugin::getSubscribedEvents()
         );
     }
 
@@ -82,7 +82,7 @@ class InstallerPluginTest extends TestCase
             ->method('patch')
             ->with($this->isInstanceOf(EnvironmentInterface::class));
 
-        $plugin = new Plugin($patcher);
+        $plugin = new InstallerPlugin($patcher);
         $plugin->onNewCodeEvent($event);
     }
 }
