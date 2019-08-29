@@ -2,6 +2,7 @@
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
+ * @deprecated
  */
 
 namespace Mediact\CodingStandard\PhpStorm;
@@ -15,14 +16,7 @@ use Composer\Script\ScriptEvents;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcher;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
 
-/**
- * This class is deprecated because this class has an extra argument.
- *
- * @deprecated
- * Class Plugin
- * @package Mediact\CodingStandard\PhpStorm
- */
-class Plugin implements PluginInterface, EventSubscriberInterface
+class InstallerPlugin implements PluginInterface, EventSubscriberInterface
 {
     /**
      * @var ConfigPatcherInterface

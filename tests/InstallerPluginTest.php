@@ -14,13 +14,12 @@ use Mediact\CodingStandard\PhpStorm\FilesystemInterface;
 use Mediact\CodingStandard\PhpStorm\Patcher\ConfigPatcherInterface;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_TestCase;
 use Mediact\CodingStandard\PhpStorm\Plugin;
 
 /**
- * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Plugin
+ * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\InstallerPlugin
  */
-class PluginTest extends TestCase
+class InstallerPluginTest extends TestCase
 {
     /**
      * @return void
