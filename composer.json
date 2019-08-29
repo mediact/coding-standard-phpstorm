@@ -9,7 +9,7 @@
             "email": "contact@mediact.nl"
         }
     ],
-    "version": "2.0.0",
+    "version": "2.0.1",
     "require": {
         "php": "^7.1",
         "composer-plugin-api": "^1.0"
