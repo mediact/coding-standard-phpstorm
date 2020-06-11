@@ -1,8 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
+
+declare(strict_types=1);
 
 namespace Mediact\CodingStandard\PhpStorm\Patcher;
 
@@ -14,8 +17,8 @@ class InspectionsPatcher implements ConfigPatcherInterface
 {
     use CopyFilesTrait;
 
-    const PROJECT_PHPCS      = 'phpcs.xml';
-    const INSPECTION_PROFILE = 'inspectionProfiles/MediaCT.xml';
+    public const PROJECT_PHPCS      = 'phpcs.xml';
+    public const INSPECTION_PROFILE = 'inspectionProfiles/MediaCT.xml';
 
     /**
      * @var XmlAccessorInterface

@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
+
 namespace Mediact\CodingStandard\PhpStorm\Tests;
 
 use PHPUnit\Framework\TestCase;
