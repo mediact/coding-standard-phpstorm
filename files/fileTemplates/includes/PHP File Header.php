@@ -1,4 +1,5 @@
+#parse("Company Settings")
 /**
- * Copyright MediaCT. All rights reserved.
- * https://www.mediact.nl
- */
+* Copyright $Company. All rights reserved.
+* $Website
+*/
