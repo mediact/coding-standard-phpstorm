@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
+
 namespace Mediact\CodingStandard\PhpStorm\Tests\Patcher;
 
 use Mediact\CodingStandard\PhpStorm\EnvironmentInterface;

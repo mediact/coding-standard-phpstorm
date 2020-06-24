@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
+
 #parse("M2-PHP-File-Header")
+
+declare(strict_types=1);
 
 use Magento\Framework\Component\ComponentRegistrar;
 

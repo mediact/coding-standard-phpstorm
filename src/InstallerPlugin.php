@@ -1,9 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  * @deprecated
  */
+
+declare(strict_types=1);
 
 namespace Mediact\CodingStandard\PhpStorm;
 

@@ -1,8 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
 /**
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
+
+declare(strict_types=1);
 
 namespace Mediact\CodingStandard\PhpStorm;
 
@@ -52,7 +55,8 @@ class XmlAccessor implements XmlAccessorInterface
         array $path
     ): SimpleXMLElement {
         foreach ($path as $childProperties) {
-            if (!is_array($childProperties)
+            if (
+                !is_array($childProperties)
                 || empty($childProperties)
             ) {
                 throw new InvalidArgumentException('Invalid descendant path');
