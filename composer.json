@@ -10,9 +10,7 @@
         }
     ],
     "version": "3.0.0",
-     "prefer-stable": true,
-     "minimum-stability": "dev",
-    "require": {
+     "require": {
         "php": "^7.1",
         "composer-plugin-api": "^2.0"
     },
@@ -20,7 +18,7 @@
         "phpunit/phpunit": "^7.5",
         "composer/composer": "@stable",
         "kint-php/kint": "@stable",
-        "mediact/testing-suite": "dev-feature/support-composer-v2 as 3.0.0",
+        "mediact/testing-suite": "@stable",
         "mikey179/vfsstream": "^1.6"
     },
     "autoload": {
