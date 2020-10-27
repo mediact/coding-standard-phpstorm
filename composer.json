@@ -9,16 +9,18 @@
             "email": "contact@mediact.nl"
         }
     ],
-    "version": "2.1.0",
+    "version": "3.0.0",
+     "prefer-stable": true,
+     "minimum-stability": "dev",
     "require": {
         "php": "^7.1",
-        "composer-plugin-api": "^1.0"
+        "composer-plugin-api": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5",
-        "composer/composer": "^1.3",
+        "composer/composer": "@stable",
         "kint-php/kint": "@stable",
-        "mediact/testing-suite": "^2.0",
+        "mediact/testing-suite": "dev-feature/support-composer-v2 as 3.0.0",
         "mikey179/vfsstream": "^1.6"
     },
     "autoload": {
