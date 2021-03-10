@@ -136,7 +136,7 @@ class InstallerPlugin implements PluginInterface, EventSubscriberInterface
         }
 
         $phpStormDefaultPaths    = array_reverse(glob("$home/.[pP]hp[sS]torm201*/config/"));
-        $phpStormNewDefaultPaths = array_reverse(glob("$home/.config/JetBrains/[pP]hp[sS]torm201*/"));
+        $phpStormNewDefaultPaths = array_reverse(glob("$home/.config/JetBrains/[pP]hp[sS]torm202*/"));
 
         if (! empty($phpStormDefaultPaths)) {
             $phpStormDefaultPath = reset($phpStormDefaultPaths);

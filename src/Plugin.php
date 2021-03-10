@@ -141,9 +141,13 @@ class Plugin implements PluginInterface, EventSubscriberInterface
             $home = getenv("HOME");
         }
 
-        $phpStormDefaultPaths = array_reverse(glob("$home/.[pP]hp[sS]torm201*/config/"));
+        $phpStormDefaultPaths    = array_reverse(glob("$home/.[pP]hp[sS]torm201*/config/"));
+        $phpStormNewDefaultPaths = array_reverse(glob("$home/.config/JetBrains/[pP]hp[sS]torm202*/"));
+
         if (! empty($phpStormDefaultPaths)) {
             $phpStormDefaultPath = reset($phpStormDefaultPaths);
+        } elseif(! empty($phpStormNewDefaultPaths)) {
+            $phpStormDefaultPath = reset($phpStormNewDefaultPaths);
         }
 
         return $phpStormDefaultPath;
