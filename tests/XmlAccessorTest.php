@@ -111,12 +111,11 @@ class XmlAccessorTest extends TestCase
      *
      * @dataProvider getDescendantDataProvider
      *
-     * @expectedException \InvalidArgumentException
-     *
      * @covers ::getDescendant
      */
     public function testGetDescendantException()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $accessor = new XmlAccessor();
 
         $xml = simplexml_load_string('<some_data></some_data>');

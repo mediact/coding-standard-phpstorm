@@ -14,14 +14,13 @@
         "composer-plugin-api": "^1.0 || ^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.5",
+        "mediact/testing-suite": "@stable",
         "composer/composer": "^1.3 || ^2.0",
         "kint-php/kint": "@stable",
         "mediact/coding-standard": "@stable",
-        "phpro/grumphp": ">=0.19 <1.0",
         "phpstan/phpstan": "@stable",
-        "sensiolabs/security-checker": "@stable",
-        "mikey179/vfsstream": "^1.6"
+        "mikey179/vfsstream": "^1.6",
+        "ext-simplexml": "*"
     },
     "autoload": {
         "psr-4": {
@@ -46,7 +45,9 @@
             "/phpstan.neon",
             "/phpcs.xml",
             "/grumphp.yml",
-            "/pdepend.xml"
+            "/pdepend.xml",
+            "/docker-compose.yml",
+            "/.env.dev"
         ]
     },
     "config": {

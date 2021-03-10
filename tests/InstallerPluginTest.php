@@ -32,8 +32,7 @@ class InstallerPluginTest extends TestCase
      */
     public function testGetSubscribedEvents()
     {
-        $this->assertInternalType(
-            'array',
+        $this->assertIsArray(
             InstallerPlugin::getSubscribedEvents()
         );
     }
