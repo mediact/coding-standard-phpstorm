@@ -11,6 +11,7 @@ use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
 use Mediact\CodingStandard\PhpStorm\Filesystem;
+use RuntimeException;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Filesystem
@@ -71,7 +72,7 @@ class FilesystemTest extends TestCase
      */
     public function testReadExceptionReadable()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $this->createFile('foo.txt', 'foo', 0000);
@@ -85,7 +86,7 @@ class FilesystemTest extends TestCase
      */
     public function testReadExceptionDir()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $filesystem->read('');
@@ -139,7 +140,7 @@ class FilesystemTest extends TestCase
      */
     public function testPutExceptionWritableFile()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $this->createFile('path/to/foo.txt', 'foo', 0000);
@@ -153,7 +154,7 @@ class FilesystemTest extends TestCase
      */
     public function testPutExceptionWritableDirectory()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $this->createDir('path/to', 0000);
@@ -194,7 +195,7 @@ class FilesystemTest extends TestCase
      */
     public function testCreateDirExceptionFile()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $this->createFile('foo/bar', 'foo');
@@ -208,7 +209,7 @@ class FilesystemTest extends TestCase
      */
     public function testCreateDirExceptionWritable()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $this->createDir('foo', 0000);
@@ -247,7 +248,7 @@ class FilesystemTest extends TestCase
      */
     public function testListFilesException()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $filesystem->listFiles('foo/bar');
