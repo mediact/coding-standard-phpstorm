@@ -1,2 +1,11 @@
 imports:
   - resource: 'vendor/mediact/testing-suite/config/default/grumphp.yml'
+parameters:
+  xmllint.ignore_patterns:
+    # Uses an incomplete definition, which conflicts when <exclude-pattern>
+    # is defined.
+    - /^phpcs.xml$/
+    - /^phpmd.xml$/
+    - /^phpunit.xml$/
+    - /^pdepend.xml$/
+    - /^files/
