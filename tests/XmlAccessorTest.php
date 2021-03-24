@@ -7,8 +7,8 @@
 
 namespace Mediact\CodingStandard\PhpStorm\Tests;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_TestCase;
 use Mediact\CodingStandard\PhpStorm\XmlAccessor;
 
 /**
@@ -111,12 +111,11 @@ class XmlAccessorTest extends TestCase
      *
      * @dataProvider getDescendantDataProvider
      *
-     * @expectedException \InvalidArgumentException
-     *
      * @covers ::getDescendant
      */
     public function testGetDescendantException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $accessor = new XmlAccessor();
 
         $xml = simplexml_load_string('<some_data></some_data>');

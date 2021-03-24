@@ -11,6 +11,7 @@ use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
 use Mediact\CodingStandard\PhpStorm\Filesystem;
+use RuntimeException;
 
 /**
  * @coversDefaultClass \Mediact\CodingStandard\PhpStorm\Filesystem
@@ -67,12 +68,11 @@ class FilesystemTest extends TestCase
     /**
      * @return void
      *
-     * @expectedException \RuntimeException
-     *
      * @covers ::read
      */
     public function testReadExceptionReadable()
     {
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $this->createFile('foo.txt', 'foo', 0000);
@@ -82,12 +82,11 @@ class FilesystemTest extends TestCase
     /**
      * @return void
      *
-     * @expectedException \RuntimeException
-     *
      * @covers ::read
      */
     public function testReadExceptionDir()
     {
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $filesystem->read('');
@@ -137,12 +136,11 @@ class FilesystemTest extends TestCase
     /**
      * @return void
      *
-     * @expectedException \RuntimeException
-     *
      * @covers ::put
      */
     public function testPutExceptionWritableFile()
     {
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $this->createFile('path/to/foo.txt', 'foo', 0000);
@@ -152,12 +150,11 @@ class FilesystemTest extends TestCase
     /**
      * @return void
      *
-     * @expectedException \RuntimeException
-     *
      * @covers ::put
      */
     public function testPutExceptionWritableDirectory()
     {
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $this->createDir('path/to', 0000);
@@ -194,12 +191,11 @@ class FilesystemTest extends TestCase
     /**
      * @return void
      *
-     * @expectedException \RuntimeException
-     *
      * @covers ::createDir
      */
     public function testCreateDirExceptionFile()
     {
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $this->createFile('foo/bar', 'foo');
@@ -209,12 +205,11 @@ class FilesystemTest extends TestCase
     /**
      * @return void
      *
-     * @expectedException \RuntimeException
-     *
      * @covers ::createDir
      */
     public function testCreateDirExceptionWritable()
     {
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $this->createDir('foo', 0000);
@@ -249,12 +244,11 @@ class FilesystemTest extends TestCase
     /**
      * @return void
      *
-     * @expectedException \RuntimeException
-     *
      * @covers ::listFiles
      */
     public function testListFilesException()
     {
+        $this->expectException(RuntimeException::class);
         $filesystem = new Filesystem($this->vfs->url());
 
         $filesystem->listFiles('foo/bar');

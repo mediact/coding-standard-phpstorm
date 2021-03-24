@@ -146,7 +146,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 
         if (! empty($phpStormDefaultPaths)) {
             $phpStormDefaultPath = reset($phpStormDefaultPaths);
-        } elseif(! empty($phpStormNewDefaultPaths)) {
+        } elseif (! empty($phpStormNewDefaultPaths)) {
             $phpStormDefaultPath = reset($phpStormNewDefaultPaths);
         }
 

@@ -7,3 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2.2.1 - 2021-03-10
 ### Fixed
 - PhpStorm 2020 has changed there config folder to a different path.
+
+### Added
+- Compatibility for latest testing suite 2.4.2.
+
+### Changed
+- phpunits to test the code. Some old functions were deprecated.
