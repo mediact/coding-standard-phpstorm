@@ -202,6 +202,7 @@
       <option name="CUSTOM_RULESET_PATH" value="$PROJECT_DIR$/vendor/mediact/coding-standard/src/MediaCT/ruleset.xml" />
       <option name="WARNING_HIGHLIGHT_LEVEL_NAME" value="WEAK WARNING" />
       <option name="SHOW_SNIFF_NAMES" value="true" />
+      <option name="EXTENSIONS" value="php,inc" />
     </inspection_tool>
     <inspection_tool class="RouteSettingDeprecatedInspection" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
