@@ -9,3 +9,4 @@ parameters:
     - /^phpunit.xml$/
     - /^pdepend.xml$/
     - /^files/
+  phplint.triggered_by: []
